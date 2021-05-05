@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CSB.Business\CSB.Business.csproj" />
+    <ProjectReference Include="..\CSB.Repository\CSB.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
