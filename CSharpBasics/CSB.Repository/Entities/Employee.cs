@@ -16,6 +16,9 @@ namespace CSB.Repository.Entities
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
 
-        // TODO: Position 
+        public Position Position { get; set; }
+
+
+       
     }
 }
