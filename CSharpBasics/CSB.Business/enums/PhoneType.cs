@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSB.Business.enums
+namespace CSB.Business.Enums
 {
     public enum PhoneType
     {
