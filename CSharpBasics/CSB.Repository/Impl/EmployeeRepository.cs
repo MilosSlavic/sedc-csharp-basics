@@ -58,11 +58,16 @@ namespace CSB.Repository.Impl
 
         public List<Employee> GetOlderThan(int age)
         {
-            return _fileDb.Employees.Where(x => x.DateOfBirth.Subtract(DateTime.Today).Days/365 > age).ToList();
+            return _fileDb.Employees.Where(x => Math.Abs(x.DateOfBirth.Subtract(DateTime.Today).Days)/365 > age).ToList();
         }
         public List<Employee> GetByGender(short gender)
         {
             return _fileDb.Employees.Where(x => x.Gender == gender).ToList();
+        }
+
+        public List<Employee> GetByPosition(string code)
+        {
+            return _fileDb.Employees.Where(x => x.Position != null && x.Position.Code == code).ToList();
         }
 
             

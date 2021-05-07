@@ -22,5 +22,7 @@ namespace CSB.Repository.Interfaces
         List<Employee> GetOlderThan(int age);
 
         List<Employee> GetByGender(short gender);
+
+        List<Employee> GetByPosition(string code);
     }
 }
