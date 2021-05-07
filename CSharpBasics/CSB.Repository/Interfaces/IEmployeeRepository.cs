@@ -18,5 +18,7 @@ namespace CSB.Repository.Interfaces
         bool Delete(int id);
 
         List<Employee> GetByName(string name);
+
+        List<Employee> GetOlderThan(int age);
     }
 }

@@ -56,5 +56,10 @@ namespace CSB.Repository.Impl
             throw new NotImplementedException();
         }
 
+        public List<Employee> GetOlderThan(int age)
+        {
+            return _fileDb.Employees.Where(x => x.DateOfBirth.Subtract(DateTime.Today).Days/365 > age).ToList();
+        }
+
     }
 }
