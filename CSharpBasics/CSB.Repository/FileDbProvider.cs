@@ -6,18 +6,27 @@ using System.Text.Json;
 
 namespace CSB.Repository
 {
-    public static class FileDbProvider
+    public class FileDbProvider
     {
         private const string employeeFile = "employee.json";
-        private static List<Employee> Employees { get; set; }
-        public static bool AutoSaveOnAdd { get; set; } = true;
+
+        public static FileDbProvider Instance { get; }
+
+        private List<Employee> Employees { get; set; }
+
+        public bool AutoSaveOnAdd { get; set; } = true;
 
         static FileDbProvider()
+        {
+            Instance = new FileDbProvider();
+        }
+
+        private FileDbProvider()
         {
             Load();
         }
 
-        public static void Load()
+        public void Load()
         {
             if (!File.Exists(employeeFile))
             {
@@ -34,18 +43,18 @@ namespace CSB.Repository
             }
         }
 
-        public static void Save()
+        public void Save()
         {
             var content = JsonSerializer.Serialize(Employees);
             File.WriteAllText(employeeFile, content);
         }
 
-        public static IReadOnlyList<Employee> GetAll()
+        public IReadOnlyList<Employee> GetAll()
         {
             return Employees;
         }
 
-        public static void Add(Employee employee)
+        public void Add(Employee employee)
         {
             if (Employees.Any(x => x.ID == employee.ID))
             {
