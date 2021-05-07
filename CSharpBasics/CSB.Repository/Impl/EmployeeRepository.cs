@@ -60,6 +60,11 @@ namespace CSB.Repository.Impl
         {
             return _fileDb.Employees.Where(x => x.DateOfBirth.Subtract(DateTime.Today).Days/365 > age).ToList();
         }
+        public List<Employee> GetByGender(short gender)
+        {
+            return _fileDb.Employees.Where(x => x.Gender == gender).ToList();
+        }
 
+            
     }
 }
