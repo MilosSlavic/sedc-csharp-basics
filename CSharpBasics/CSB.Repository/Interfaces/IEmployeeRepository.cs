@@ -16,5 +16,7 @@ namespace CSB.Repository.Interfaces
         bool Update(Employee employee);
 
         bool Delete(int id);
+
+        List<Employee> GetByName(string name);
     }
 }

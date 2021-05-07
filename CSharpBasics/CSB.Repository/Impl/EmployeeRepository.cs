@@ -46,9 +46,15 @@ namespace CSB.Repository.Impl
             return _fileDb.Employees.FirstOrDefault(x => x.Id == id);
         }
 
+        public List<Employee> GetByName(string name)
+        {
+            return _fileDb.Employees.Where(x => x.FirstName == name).ToList();                 
+        }
+
         public bool Update(Employee employee)
         {
             throw new NotImplementedException();
         }
+
     }
 }
