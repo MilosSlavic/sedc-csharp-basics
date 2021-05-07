@@ -18,6 +18,8 @@ namespace CSB.Repository
 
         public List<Phone> Phones { get; set; } = new List<Phone>();
 
+        public List<Address> Addresses { get; set; } = new List<Address>();
+
         static FileDbProvider()
         {
             Instance = new FileDbProvider();
