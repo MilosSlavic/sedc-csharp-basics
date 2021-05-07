@@ -32,7 +32,13 @@ namespace CSB.Repository.Impl
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            var deletedEmployee = _fileDb.Employees.FirstOrDefault(x => x.Id == id);
+
+            _fileDb.Employees.Remove(deletedEmployee);
+
+            _fileDb.Save();
+
+            return true;
         }
 
         public Employee GetById(int id)
