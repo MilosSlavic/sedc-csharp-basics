@@ -30,13 +30,26 @@ namespace CSB.Repository
 
         public void Load()
         {
-            if (!File.Exists(employeeFile))
+            var employeeContent = ReadFile(employeeFile);
+            var phonesContent = ReadFile(phoneFile);
+
+            LoadEmployees(employeeContent);
+
+            
+        }
+
+        public string ReadFile (string filePath)
+        {
+            if (!File.Exists(filePath))
             {
-                File.Create(employeeFile);
+                File.Create(filePath);
             }
 
-            var content = File.ReadAllText(employeeFile);
+            return File.ReadAllText(filePath);
+        }
 
+        public void LoadEmployees(string content)
+        {
             if (!string.IsNullOrEmpty(content))
             {
                 var employeesDeserialized = JsonSerializer.Deserialize<IEnumerable<Employee>>(content);
@@ -44,7 +57,15 @@ namespace CSB.Repository
                 Employees.AddRange(employeesDeserialized);
             }
         }
-
+        public void LoadPhone(string content)
+        {
+            if (!string.IsNullOrEmpty(content))
+            {
+                var phoneDeserialized = JsonSerializer.Deserialize<IEnumerable<Phone>>(content);
+                Phones.Clear();
+                Phones.AddRange(phoneDeserialized);
+            }
+        }
         public void Save()
         {
             var employeesContent = JsonSerializer.Serialize(Employees);
