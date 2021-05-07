@@ -10,6 +10,8 @@ namespace CSB.Repository
     {
         private const string employeeFile = "employee.json";
 
+        private const string phoneFile = "phone.json";
+
         public static FileDbProvider Instance { get; }
 
         public List<Employee> Employees { get; set; } = new List<Employee>();
@@ -45,8 +47,11 @@ namespace CSB.Repository
 
         public void Save()
         {
-            var content = JsonSerializer.Serialize(Employees);
-            File.WriteAllText(employeeFile, content);
+            var employeesContent = JsonSerializer.Serialize(Employees);
+            File.WriteAllText(employeeFile, employeesContent);
+
+            var phonesContent = JsonSerializer.Serialize(Phones);
+            File.WriteAllText(phoneFile, phonesContent);
         }
     }
 }
