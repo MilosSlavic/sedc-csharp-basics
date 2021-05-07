@@ -12,6 +12,8 @@ namespace CSB.Repository
 
         private const string phoneFile = "phone.json";
 
+        private const string addressFile = "address.json";
+
         public static FileDbProvider Instance { get; }
 
         public List<Employee> Employees { get; set; } = new List<Employee>();
@@ -75,6 +77,9 @@ namespace CSB.Repository
 
             var phonesContent = JsonSerializer.Serialize(Phones);
             File.WriteAllText(phoneFile, phonesContent);
+
+            var addressContent = JsonSerializer.Serialize(Addresses);
+            File.WriteAllText(addressFile, addressContent);
         }
     }
 }
