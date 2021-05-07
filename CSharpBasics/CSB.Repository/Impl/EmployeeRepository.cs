@@ -43,7 +43,7 @@ namespace CSB.Repository.Impl
 
         public Employee GetById(int id)
         {
-            throw new NotImplementedException();
+            return _fileDb.Employees.FirstOrDefault(x => x.Id == id);
         }
 
         public bool Update(Employee employee)
