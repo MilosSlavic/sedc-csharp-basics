@@ -12,9 +12,7 @@ namespace CSB.Repository
 
         public static FileDbProvider Instance { get; }
 
-        private List<Employee> Employees { get; set; }
-
-        public bool AutoSaveOnAdd { get; set; } = true;
+        public List<Employee> Employees { get; set; }
 
         static FileDbProvider()
         {
@@ -47,25 +45,6 @@ namespace CSB.Repository
         {
             var content = JsonSerializer.Serialize(Employees);
             File.WriteAllText(employeeFile, content);
-        }
-
-        public IReadOnlyList<Employee> GetAll()
-        {
-            return Employees;
-        }
-
-        public void Add(Employee employee)
-        {
-            if (Employees.Any(x => x.ID == employee.ID))
-            {
-                return;
-            }
-
-            Employees.Add(employee);
-            if (AutoSaveOnAdd)
-            {
-                Save();
-            }
         }
     }
 }
