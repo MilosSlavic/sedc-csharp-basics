@@ -12,7 +12,9 @@ namespace CSB.Repository
 
         public static FileDbProvider Instance { get; }
 
-        public List<Employee> Employees { get; set; }
+        public List<Employee> Employees { get; set; } = new List<Employee>();
+
+        public List<Phone> Phones { get; set; } = new List<Phone>();
 
         static FileDbProvider()
         {
