@@ -24,5 +24,8 @@ namespace CSB.Repository.Interfaces
         List<Employee> GetByGender(short gender);
 
         List<Employee> GetByPosition(string code);
+
+        List<Address> GetAddressByCity(string city);
+
     }
 }

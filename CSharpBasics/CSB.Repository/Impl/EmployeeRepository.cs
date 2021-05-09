@@ -70,6 +70,11 @@ namespace CSB.Repository.Impl
             return _fileDb.Employees.Where(x => x.Position != null && x.Position.Code == code).ToList();
         }
 
-            
+        public List<Address> GetAddressByCity(string city)
+        {
+            List<Address> addressesList = _fileDb.Addresses.Where(x => x.City == city).ToList();
+
+            return addressesList;
+        }
     }
 }
