@@ -39,9 +39,12 @@ namespace CSB.Repository.Impl
         {
             return _fileDb.Addresses.Where(x => x.EmployeeId == employeeId).ToList();
         }
+        public IReadOnlyList<Phone> GetPhones(int employeeId)
+        {
+            return _fileDb.Phones.Where(x => x.EmployeeId == employeeId).ToList();
+        }
 
-        
-     
-        
+
+
     }
 }

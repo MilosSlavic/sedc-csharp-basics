@@ -29,5 +29,7 @@ namespace CSB.Repository.Interfaces
 
         List<Employee> GetPositionByCode(string code);
 
+        
+
     }
 }

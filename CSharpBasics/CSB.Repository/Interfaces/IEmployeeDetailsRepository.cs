@@ -10,9 +10,9 @@ namespace CSB.Repository.Interfaces
     interface IEmployeeDetailsRepository
     {
         int AddAddress(Address address);
+        int AddPhone(Phone phone);
 
         IReadOnlyList<Address> GetAddresses(int employeeId);
-
-        int AddPhone(Phone phone);
+        IReadOnlyList<Phone> GetPhones(int employeeId);
     }
 }
