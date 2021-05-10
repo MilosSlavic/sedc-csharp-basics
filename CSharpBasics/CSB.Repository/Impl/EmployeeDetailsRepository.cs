@@ -18,7 +18,11 @@ namespace CSB.Repository.Impl
         
         public int AddAddress(Address address)
         {
-            throw new NotImplementedException();
+            var newId = _fileDb.Addresses.Max(x => x.Id);
+            address.Id = newId + 1;
+            _fileDb.Addresses.Add(address);
+            _fileDb.Save();
+            return address.Id;
         }
 
         public int AddPhone(Phone phone)
@@ -33,7 +37,7 @@ namespace CSB.Repository.Impl
 
         public IReadOnlyList<Address> GetAddresses(int employeeId)
         {
-            throw new NotImplementedException();
+            return _fileDb.Addresses.Where(x => x.EmployeeId == employeeId).ToList();
         }
 
         
