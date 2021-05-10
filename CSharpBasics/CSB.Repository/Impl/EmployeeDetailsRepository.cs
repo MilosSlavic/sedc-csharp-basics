@@ -15,6 +15,11 @@ namespace CSB.Repository.Impl
             throw new NotImplementedException();
         }
 
+        public int AddPhone(Phone phone)
+        {
+            throw new NotImplementedException();
+        }
+
         public IReadOnlyList<Address> GetAddresses(int employeeId)
         {
             throw new NotImplementedException();

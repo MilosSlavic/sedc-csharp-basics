@@ -12,7 +12,7 @@ namespace CSB.Repository.Impl
     {
         private FileDbProvider _fileDb;
 
-        public EmployeeRepository (FileDbProvider fileDb)
+        public EmployeeRepository(FileDbProvider fileDb)
         {
             _fileDb = fileDb;
         }
@@ -48,17 +48,35 @@ namespace CSB.Repository.Impl
 
         public List<Employee> GetByName(string name)
         {
-            return _fileDb.Employees.Where(x => x.FirstName == name).ToList();                 
+            return _fileDb.Employees.Where(x => x.FirstName == name).ToList();
         }
 
         public bool Update(Employee employee)
         {
-            throw new NotImplementedException();
+            var existingEmployee = _fileDb.Employees.FirstOrDefault(x => x.Id == employee.Id);
+
+            if (existingEmployee == null)
+            {
+                return false;
+            }
+
+            existingEmployee.FirstName = employee.FirstName;
+            existingEmployee.LastName = employee.LastName;
+            existingEmployee.Status = employee.Status;
+            existingEmployee.Gender = employee.Gender;
+            existingEmployee.Email = employee.Email;
+            existingEmployee.DateOfBirth = employee.DateOfBirth;
+            existingEmployee.Position = employee.Position;
+
+
+            _fileDb.Save();
+
+            return true;
         }
 
         public List<Employee> GetOlderThan(int age)
         {
-            return _fileDb.Employees.Where(x => Math.Abs(x.DateOfBirth.Subtract(DateTime.Today).Days)/365 > age).ToList();
+            return _fileDb.Employees.Where(x => Math.Abs(x.DateOfBirth.Subtract(DateTime.Today).Days) / 365 > age).ToList();
         }
         public List<Employee> GetByGender(short gender)
         {
