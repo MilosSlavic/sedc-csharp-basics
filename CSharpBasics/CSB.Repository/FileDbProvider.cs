@@ -15,6 +15,8 @@ namespace CSB.Repository
 
         private const string addressFile = "address.json";
 
+        private const string positionsFile = "positions.json";
+
         public static FileDbProvider Instance { get; }
 
         public List<Employee> Employees { get; set; } = new List<Employee>();
@@ -22,6 +24,8 @@ namespace CSB.Repository
         public List<Phone> Phones { get; set; } = new List<Phone>();
 
         public List<Address> Addresses { get; set; } = new List<Address>();
+
+        public List<Position> Positions { get; set; } = new List<Position>();
 
         static FileDbProvider()
         {
@@ -37,16 +41,17 @@ namespace CSB.Repository
         {
             var employeeContent = ReadFile(employeeFile);
             var phonesContent = ReadFile(phoneFile);
-            var adressContent = ReadFile(addressFile);
+            var addressContent = ReadFile(addressFile);
+            var positionsContent = ReadFile(addressFile);
 
             LoadContent<Employee>(Employees, employeeContent);
             LoadContent(Phones, phonesContent);
-            LoadContent(Addresses, adressContent);
+            LoadContent(Addresses, addressContent);
+            LoadContent(Positions, positionsContent);
 
-            
         }
 
-        public string ReadFile (string filePath)
+        public string ReadFile(string filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -56,7 +61,7 @@ namespace CSB.Repository
             return File.ReadAllText(filePath);
         }
 
-        public void LoadContent <T>(List<T> collection, string content)
+        public void LoadContent<T>(List<T> collection, string content)
         {
 
             if (!string.IsNullOrEmpty(content))
@@ -77,6 +82,9 @@ namespace CSB.Repository
 
             var addressContent = JsonSerializer.Serialize(Addresses);
             File.WriteAllText(addressFile, addressContent);
+
+            var positionsContent = JsonSerializer.Serialize(Positions);
+            File.WriteAllText(positionsFile, positionsContent);
         }
     }
 }
