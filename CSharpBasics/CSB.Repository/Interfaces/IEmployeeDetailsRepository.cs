@@ -12,5 +12,7 @@ namespace CSB.Repository.Interfaces
         int AddAddress(Address address);
 
         IReadOnlyList<Address> GetAddresses(int employeeId);
+
+        
     }
 }

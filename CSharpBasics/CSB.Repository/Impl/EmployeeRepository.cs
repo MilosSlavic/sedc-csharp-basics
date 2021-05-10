@@ -12,7 +12,7 @@ namespace CSB.Repository.Impl
     {
         private FileDbProvider _fileDb;
 
-        public EmployeeRepository (FileDbProvider fileDb)
+        public EmployeeRepository(FileDbProvider fileDb)
         {
             _fileDb = fileDb;
         }
@@ -48,7 +48,7 @@ namespace CSB.Repository.Impl
 
         public List<Employee> GetByName(string name)
         {
-            return _fileDb.Employees.Where(x => x.FirstName == name).ToList();                 
+            return _fileDb.Employees.Where(x => x.FirstName == name).ToList();
         }
 
         public bool Update(Employee employee)
@@ -58,7 +58,7 @@ namespace CSB.Repository.Impl
 
         public List<Employee> GetOlderThan(int age)
         {
-            return _fileDb.Employees.Where(x => Math.Abs(x.DateOfBirth.Subtract(DateTime.Today).Days)/365 > age).ToList();
+            return _fileDb.Employees.Where(x => Math.Abs(x.DateOfBirth.Subtract(DateTime.Today).Days) / 365 > age).ToList();
         }
         public List<Employee> GetByGender(short gender)
         {
@@ -76,5 +76,13 @@ namespace CSB.Repository.Impl
 
             return addressesList;
         }
+
+        public List<Employee> GetPositionByCode(string code)
+        {
+            List<Employee> pos = _fileDb.Employees.Where(x => x.Position.Code == code).ToList();
+
+            return pos;
+        }
     }
 }
+
