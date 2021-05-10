@@ -1,4 +1,5 @@
 ﻿using CSB.Repository.Entities;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,8 +37,11 @@ namespace CSB.Repository
         {
             var employeeContent = ReadFile(employeeFile);
             var phonesContent = ReadFile(phoneFile);
+            var adressContent = ReadFile(addressFile);
 
-            LoadEmployees(employeeContent);
+            LoadContent<Employee>(Employees, employeeContent);
+            LoadContent(Phones, phonesContent);
+            LoadContent(Addresses, adressContent);
 
             
         }
@@ -52,24 +56,17 @@ namespace CSB.Repository
             return File.ReadAllText(filePath);
         }
 
-        public void LoadEmployees(string content)
+        public void LoadContent <T>(List<T> collection, string content)
         {
+
             if (!string.IsNullOrEmpty(content))
             {
-                var employeesDeserialized = JsonSerializer.Deserialize<IEnumerable<Employee>>(content);
-                Employees.Clear();
-                Employees.AddRange(employeesDeserialized);
+                var contentDeserialized = JsonSerializer.Deserialize<IEnumerable<T>>(content);
+                collection.Clear();
+                collection.AddRange(contentDeserialized);
             }
         }
-        public void LoadPhone(string content)
-        {
-            if (!string.IsNullOrEmpty(content))
-            {
-                var phoneDeserialized = JsonSerializer.Deserialize<IEnumerable<Phone>>(content);
-                Phones.Clear();
-                Phones.AddRange(phoneDeserialized);
-            }
-        }
+
         public void Save()
         {
             var employeesContent = JsonSerializer.Serialize(Employees);
