@@ -9,7 +9,12 @@ using CSB.Repository.Interfaces;
 namespace CSB.Repository.Impl
 {
     public class EmployeeDetailsRepository : IEmployeeDetailsRepository
-    {
+    {   
+        private FileDbProvider _fileDb;
+        public EmployeeDetailsRepository(FileDbProvider fileDb ) 
+        {
+            _fileDb = fileDb;
+        }
         
         public int AddAddress(Address address)
         {
@@ -18,7 +23,12 @@ namespace CSB.Repository.Impl
 
         public int AddPhone(Phone phone)
         {
-            throw new NotImplementedException();
+            var maxId = _fileDb.Phones.Max(x => x.Id);
+            phone.Id = maxId + 1;
+            _fileDb.Phones.Add(phone);
+            _fileDb.Save();
+            return phone.Id;
+
         }
 
         public IReadOnlyList<Address> GetAddresses(int employeeId)
@@ -27,7 +37,7 @@ namespace CSB.Repository.Impl
         }
 
         
-            
+     
         
     }
 }
