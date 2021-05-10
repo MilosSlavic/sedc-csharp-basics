@@ -34,6 +34,16 @@ namespace CSB.Repository.Impl
             return phone.Id;
 
         }
+        public int AddPosition(Position position)
+        {
+            var maxId = _fileDb.Positions.Max(x => x.Id);
+            position.Id = maxId + 1;
+            _fileDb.Positions.Add(position);
+            _fileDb.Save();
+            return position.Id;
+
+
+        }
 
         public IReadOnlyList<Address> GetAddresses(int employeeId)
         {
