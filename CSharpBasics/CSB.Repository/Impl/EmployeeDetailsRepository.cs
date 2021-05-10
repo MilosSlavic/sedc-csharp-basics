@@ -63,5 +63,10 @@ namespace CSB.Repository.Impl
             }
             return null;
         }
+
+        public IReadOnlyList<Position> GetAllPositions()
+        {
+            return _fileDb.Positions;
+        }
     }
 }

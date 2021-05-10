@@ -17,5 +17,6 @@ namespace CSB.Repository.Interfaces
 
         IReadOnlyList<Address> GetAddresses(int employeeId);
         IReadOnlyList<Phone> GetPhones(int employeeId);
+        IReadOnlyList<Position> GetAllPositions();
     }
 }
