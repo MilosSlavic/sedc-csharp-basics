@@ -10,6 +10,7 @@ namespace CSB.Repository.Impl
 {
     public class EmployeeDetailsRepository : IEmployeeDetailsRepository
     {
+        
         public int AddAddress(Address address)
         {
             throw new NotImplementedException();
@@ -24,5 +25,9 @@ namespace CSB.Repository.Impl
         {
             throw new NotImplementedException();
         }
+
+        
+            
+        
     }
 }

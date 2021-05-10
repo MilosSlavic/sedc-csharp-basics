@@ -27,5 +27,7 @@ namespace CSB.Repository.Interfaces
 
         List<Address> GetAddressByCity(string city);
 
+        List<Employee> GetPositionByCode(string code);
+
     }
 }

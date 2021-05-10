@@ -94,5 +94,13 @@ namespace CSB.Repository.Impl
 
             return addressesList;
         }
+
+        public List<Employee> GetPositionByCode(string code)
+        {
+            List<Employee> pos = _fileDb.Employees.Where(x => x.Position.Code == code).ToList();
+
+            return pos;
+        }
     }
 }
+
