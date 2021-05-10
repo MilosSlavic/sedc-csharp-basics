@@ -13,6 +13,8 @@ namespace CSB.Repository.Interfaces
         int AddPhone(Phone phone);
         int AddPosition(Position position);
 
+        Position GetPosition(int employeeId);
+
         IReadOnlyList<Address> GetAddresses(int employeeId);
         IReadOnlyList<Phone> GetPhones(int employeeId);
     }
