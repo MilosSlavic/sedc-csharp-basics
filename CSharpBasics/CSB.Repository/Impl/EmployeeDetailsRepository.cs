@@ -11,11 +11,11 @@ namespace CSB.Repository.Impl
     internal class EmployeeDetailsRepository : IEmployeeDetailsRepository
     {   
         private FileDbProvider _fileDb;
-        public EmployeeDetailsRepository(FileDbProvider fileDb ) 
+        public EmployeeDetailsRepository(FileDbProvider fileDb)
         {
             _fileDb = fileDb;
         }
-        
+
         public int AddAddress(Address address)
         {
             var newId = _fileDb.Addresses.Max(x => x.Id);
@@ -34,6 +34,16 @@ namespace CSB.Repository.Impl
             return phone.Id;
 
         }
+        public int AddPosition(Position position)
+        {
+            var maxId = _fileDb.Positions.Max(x => x.Id);
+            position.Id = maxId + 1;
+            _fileDb.Positions.Add(position);
+            _fileDb.Save();
+            return position.Id;
+
+
+        }
 
         public IReadOnlyList<Address> GetAddresses(int employeeId)
         {
@@ -44,7 +54,19 @@ namespace CSB.Repository.Impl
             return _fileDb.Phones.Where(x => x.EmployeeId == employeeId).ToList();
         }
 
+        public Position GetPosition(int employeeId)
+        {
+            var existingEnoloyee = _fileDb.Employees.FirstOrDefault(x => x.Id == employeeId);
+            if (existingEnoloyee != null)
+            {
+                return existingEnoloyee.Position;
+            }
+            return null;
+        }
 
-
+        public IReadOnlyList<Position> GetAllPositions()
+        {
+            return _fileDb.Positions;
+        }
     }
 }

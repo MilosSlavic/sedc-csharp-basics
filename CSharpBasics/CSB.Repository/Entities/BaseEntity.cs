@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace CSB.Repository.Entities
 {
-    public class Phone : BaseEntity
+    public class BaseEntity
     {
-        public int EmployeeId { get; set; }
+        public int Id { get; set; }
 
-        public string Number { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        public short Type { get; set; }
     }
 }

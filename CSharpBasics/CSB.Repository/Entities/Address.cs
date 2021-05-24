@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace CSB.Repository.Entities
 {
-    public class Address
+    public class Address : BaseEntity
     {
-        public int Id { get; set; }
-
         public int EmployeeId { get; set; }
 
         public string StreetName { get; set; }

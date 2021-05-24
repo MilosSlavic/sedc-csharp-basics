@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace CSB.Repository.Entities
 {
-    public class Employee
+    public class Employee : BaseEntity
     {
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public short Status { get; set; }
