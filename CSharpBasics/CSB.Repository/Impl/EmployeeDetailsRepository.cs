@@ -8,8 +8,8 @@ using CSB.Repository.Interfaces;
 
 namespace CSB.Repository.Impl
 {
-    public class EmployeeDetailsRepository : IEmployeeDetailsRepository
-    {
+    internal class EmployeeDetailsRepository : IEmployeeDetailsRepository
+    {   
         private FileDbProvider _fileDb;
         public EmployeeDetailsRepository(FileDbProvider fileDb)
         {

@@ -7,7 +7,7 @@ using CSB.Repository.Entities;
 
 namespace CSB.Repository.Interfaces
 {
-    interface IEmployeeDetailsRepository
+    public interface IEmployeeDetailsRepository
     {
         int AddAddress(Address address);
         int AddPhone(Phone phone);

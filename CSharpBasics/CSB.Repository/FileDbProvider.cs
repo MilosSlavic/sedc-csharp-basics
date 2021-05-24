@@ -1,8 +1,6 @@
 ﻿using CSB.Repository.Entities;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
 
 namespace CSB.Repository
@@ -39,15 +37,15 @@ namespace CSB.Repository
 
         public void Load()
         {
-            var employeeContent = ReadFile(employeeFile);
-            var phonesContent = ReadFile(phoneFile);
-            var addressContent = ReadFile(addressFile);
-            var positionsContent = ReadFile(addressFile);
+            //var employeeContent = ReadFile(employeeFile);
+            //var phonesContent = ReadFile(phoneFile);
+            //var addressContent = ReadFile(addressFile);
+            //var positionsContent = ReadFile(positionsFile);
 
-            LoadContent<Employee>(Employees, employeeContent);
-            LoadContent(Phones, phonesContent);
-            LoadContent(Addresses, addressContent);
-            LoadContent(Positions, positionsContent);
+            //LoadContent<Employee>(Employees, employeeContent);
+            //LoadContent(Phones, phonesContent);
+            //LoadContent(Addresses, addressContent);
+            //LoadContent(Positions, positionsContent);
 
         }
 

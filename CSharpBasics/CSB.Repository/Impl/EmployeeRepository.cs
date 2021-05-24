@@ -3,12 +3,10 @@ using CSB.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSB.Repository.Impl
 {
-    public class EmployeeRepository : IEmployeeRepository
+    internal class EmployeeRepository : IEmployeeRepository
     {
         private FileDbProvider _fileDb;
 
