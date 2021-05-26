@@ -41,8 +41,6 @@ namespace CSB.Repository.Impl
             _fileDb.Positions.Add(position);
             _fileDb.Save();
             return position.Id;
-
-
         }
 
         public IReadOnlyList<Address> GetAddresses(int employeeId)
