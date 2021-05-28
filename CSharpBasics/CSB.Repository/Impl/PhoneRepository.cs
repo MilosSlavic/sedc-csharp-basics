@@ -9,35 +9,35 @@ using CSB.Repository.GenericRepo;
 
 namespace CSB.Repository.Impl
 {
-    public class PhoneRepository : GenericRepository
+    public class PhoneRepository : IPhoneRepository
     {
-        private readonly CbsDbContext dbContext;
-
-        public PhoneRepository(CbsDbContext dbContext)
+        public int Create(Phone item)
         {
-            this.dbContext = dbContext;
-        }
-        private FileDbProvider _fileDb;
-
-        public PhoneRepository(FileDbProvider fileDb)
-        {
-            _fileDb = fileDb;
+            throw new NotImplementedException();
         }
 
-        //public int Create(Phone phone)
-        //{
-        //    var maxId = _fileDb.Phones.Max(x => x.Id);
-        //    phone.Id = maxId + 1;
-        //    _fileDb.Phones.Add(phone);
-        //    _fileDb.Save();
-        //}
+        public bool Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IReadOnlyCollection<Phone> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Phone GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
         public List<Phone> GetByName(string name)
         {
-            return (List<Phone>)_fileDb.Employees.Where(x => x.FirstName == name);
+            throw new NotImplementedException();
         }
-    }
 
-    public class GenericRepository
-    {
+        public bool Update(Phone item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
