@@ -9,15 +9,14 @@ using System.Threading.Tasks;
 
 namespace CSB.Repository.Interfaces
 {
-    internal interface IPhoneRepository<T> : IGenericRepository<T> where T : BaseEntity
+    internal interface IPhoneRepository : IGenericRepository
     {
-        Phone GetById(int id);
-        int Create(T phone);
-
-        bool Update(T phone);
-
-        bool Delete(int id);
-
+        
+        
         List<Phone> GetByName(string name);
+    }
+
+    internal interface IGenericRepository
+    {
     }
 }
