@@ -41,10 +41,10 @@ namespace CSB.Repository.Impl
 
         public Position GetPosition(int employeeId)
         {
-            var existingEnoloyee = _fileDb.Employees.FirstOrDefault(x => x.Id == employeeId);
-            if (existingEnoloyee != null)
+            var existingEmployee = _fileDb.Employees.FirstOrDefault(x => x.Id == employeeId);
+            if (existingEmployee != null)
             {
-                return existingEnoloyee.Position;
+                return existingEmployee.Position;
             }
             return null;
         }
