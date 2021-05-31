@@ -23,11 +23,8 @@ namespace CSB.Repository.Impl
         public Position GetPositionByEmployeeId(int employeeId)
         {
             var item = dbContext.Positions.SingleOrDefault(x => x.Id == employeeId);
-            if(item != null)
-            {
-                return item;
-            }
-            return null;
+            return item;
+
         }
     }
 }
