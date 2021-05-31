@@ -10,7 +10,6 @@ namespace CSB.Repository.Interfaces
 {
     public interface IAddressRepository : IGenericRepository<Address>
     {
-        int AddAddress(Address address);
 
         IReadOnlyList<Address> GetAddresses(int employeeId);
     }

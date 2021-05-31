@@ -18,16 +18,6 @@ namespace CSB.Repository.Impl
 
         private readonly CbsDbContext dbContext;
 
-        public int AddAddress(Address address)
-        {
-            
-            var newId = dbContext.Addresses.Max(x => x.Id);
-            address.Id = newId + 1;
-            dbContext.Addresses.Add(address);
-            dbContext.SaveChanges();
-            return address.Id;
-        }
-
         public IReadOnlyList<Address> GetAddresses(int employeeId)
         {
             return dbContext.Addresses.Where(x => x.EmployeeId == employeeId).ToList();
