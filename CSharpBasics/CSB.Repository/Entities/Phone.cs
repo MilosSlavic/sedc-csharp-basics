@@ -13,5 +13,7 @@ namespace CSB.Repository.Entities
         public string Number { get; set; }
 
         public short Type { get; set; }
+
+        public new int Id { get; set; }
     }
 }

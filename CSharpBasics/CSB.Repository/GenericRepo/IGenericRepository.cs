@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CSB.Repository.GenericRepo
 {
-    public interface IGenericRepository<T> where T : BaseEntity
+    public interface IPhoneRepository<T> where T : BaseEntity
     {
         //treba metode: create, update, delete, getAll, getById
         int Create(T item);

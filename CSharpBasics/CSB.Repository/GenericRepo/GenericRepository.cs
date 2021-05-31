@@ -7,11 +7,11 @@ using CSB.Repository.Entities;
 
 namespace CSB.Repository.GenericRepo
 {
-    public abstract class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+    public abstract class PhoneRepository<T> : IPhoneRepository<T> where T : BaseEntity
     {
         private readonly CbsDbContext dbContext;
 
-        public GenericRepository(CbsDbContext dbContext)
+        public PhoneRepository(CbsDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

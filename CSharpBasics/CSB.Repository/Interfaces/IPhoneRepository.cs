@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CSB.Repository.Interfaces
 {
-    internal interface IPhoneRepository : IGenericRepository<Phone>
+    internal interface IPhoneRepository : IPhoneRepository<Phone>
     {
         List<Phone> GetByName(string name);
     }
