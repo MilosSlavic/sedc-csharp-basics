@@ -5,25 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using CSB.Repository.Entities;
 using CSB.Repository.Interfaces;
+using CSB.Repository.GenericRepo;
 
 namespace CSB.Repository.Impl
 {
-    internal class AddressRepository : IAddressRepository
+    internal class AddressRepository : GenericRepository<Address>, IAddressRepository
     {
-        private FileDbProvider _fileDb;
+        public AddressRepository(CbsDbContext dbContext) : base(dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
+        private readonly CbsDbContext dbContext;
 
         public int AddAddress(Address address)
         {
-            var newId = _fileDb.Addresses.Max(x => x.Id);
+            
+            var newId = dbContext.Addresses.Max(x => x.Id);
             address.Id = newId + 1;
-            _fileDb.Addresses.Add(address);
-            _fileDb.Save();
+            dbContext.Addresses.Add(address);
+            dbContext.SaveChanges();
             return address.Id;
         }
 
         public IReadOnlyList<Address> GetAddresses(int employeeId)
         {
-            return _fileDb.Addresses.Where(x => x.EmployeeId == employeeId).ToList();
+            return dbContext.Addresses.Where(x => x.EmployeeId == employeeId).ToList();
         }
     }
 }
