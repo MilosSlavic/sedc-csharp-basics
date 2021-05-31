@@ -42,16 +42,6 @@ namespace CSB.Repository.Impl
             _fileDb.Save();
             return position.Id;
         }
-
-        public IReadOnlyList<Address> GetAddresses(int employeeId)
-        {
-            return _fileDb.Addresses.Where(x => x.EmployeeId == employeeId).ToList();
-        }
-        public IReadOnlyList<Phone> GetPhones(int employeeId)
-        {
-            return _fileDb.Phones.Where(x => x.EmployeeId == employeeId).ToList();
-        }
-
         public Position GetPosition(int employeeId)
         {
             var existingEnoloyee = _fileDb.Employees.FirstOrDefault(x => x.Id == employeeId);
@@ -61,10 +51,18 @@ namespace CSB.Repository.Impl
             }
             return null;
         }
-
+        public IReadOnlyList<Address> GetAddresses(int employeeId)
+        {
+            return _fileDb.Addresses.Where(x => x.EmployeeId == employeeId).ToList();
+        }
+        public IReadOnlyList<Phone> GetPhones(int employeeId)
+        {
+            return _fileDb.Phones.Where(x => x.EmployeeId == employeeId).ToList();
+        }
         public IReadOnlyList<Position> GetAllPositions()
         {
             return _fileDb.Positions;
         }
+
     }
 }
