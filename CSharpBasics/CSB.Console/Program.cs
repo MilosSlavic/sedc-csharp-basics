@@ -7,6 +7,7 @@ using CSB.Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using cli = System.Console;
 
 namespace CSB.Console
@@ -34,7 +35,12 @@ namespace CSB.Console
 
             //HighMemoryConsumption();
 
+            //SomeAsync().GetAwaiter().GetResult();
+        }
 
+        static Task SomeAsync()
+        {
+            return Task.CompletedTask;
         }
 
         static void StackOverflow(int i)
