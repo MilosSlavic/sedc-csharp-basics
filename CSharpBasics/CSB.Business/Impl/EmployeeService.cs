@@ -3,6 +3,7 @@ using CSB.Business.Interfaces;
 using CSB.Repository.Entities;
 using CSB.Repository.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace CSB.Business.Impl
 {
@@ -35,5 +36,99 @@ namespace CSB.Business.Impl
         {
             return _fileDb.Employees.FirstOrDefault(x => x.Id == id);
         }*/
+        //int Create(Employee employee);
+
+        //bool Update(Employee employee);
+
+        //bool Delete(int id);
+
+        //List<Employee> GetByName(string name);
+        public List<Employee> GetByName(string name)
+        {
+            if(name.Length == 0)
+            {
+                throw new ArgumentException(nameof(name));
+            }
+
+            var employees = _employeeRepository.GetByName(name);
+            if(employees.Count == 0)
+            {
+                throw new NotFoundException(nameof(List<Employee>));
+            }
+
+            return employees;
+        }
+
+        //List<Employee> GetOlderThan(int age);
+        public List<Employee> GetOlderThan(int age)
+        {
+
+            var employees = _employeeRepository.GetOlderThan(age);
+            if (employees.Count == 0)
+            {
+                throw new NotFoundException(nameof(List<Employee>));
+            }
+            
+            return employees;
+        }
+        //List<Employee> GetByGender(short gender);
+        public List<Employee> GetByGender(short gender)
+        {
+            var employees = _employeeRepository.GetByGender(gender);
+            if (employees.Count == 0)
+            {
+                throw new NotFoundException(nameof(List<Employee>));
+            }
+
+            return employees;
+        }
+        //List<Employee> GetByPosition(string code);
+        public List<Employee> GetByPosition(string code)
+        {
+            if (code.Length == 0)
+            {
+                throw new ArgumentException(nameof(code));
+            }
+
+            var employees = _employeeRepository.GetByPosition(code);
+            if (employees.Count == 0)
+            {
+                throw new NotFoundException(nameof(List<Employee>));
+            }
+
+            return employees;
+        }
+        //List<Address> GetAddressByCity(string city);
+        public List<Address> GetAddressByCity(string city)
+        {
+            if (city.Length == 0)
+            {
+                throw new ArgumentException(nameof(city));
+            }
+
+            var employees = _employeeRepository.GetAddressByCity(city);
+            if (employees.Count == 0)
+            {
+                throw new NotFoundException(nameof(List<Employee>));
+            }
+
+            return employees;
+        }
+        //List<Employee> GetPositionByCode(string code);
+        public List<Employee> GetPositionByCode(string code)
+        {
+            if (code.Length == 0)
+            {
+                throw new ArgumentException(nameof(code));
+            }
+
+            var employees = _employeeRepository.GetPositionByCode(code);
+            if (employees.Count == 0)
+            {
+                throw new NotFoundException(nameof(List<Employee>));
+            }
+
+            return employees;
+        }
     }
 }
