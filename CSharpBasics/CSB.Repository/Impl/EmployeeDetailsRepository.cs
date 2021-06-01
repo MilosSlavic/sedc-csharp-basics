@@ -16,15 +16,6 @@ namespace CSB.Repository.Impl
             _fileDb = fileDb;
         }
 
-        public int AddAddress(Address address)
-        {
-            var newId = _fileDb.Addresses.Max(x => x.Id);
-            address.Id = newId + 1;
-            _fileDb.Addresses.Add(address);
-            _fileDb.Save();
-            return address.Id;
-        }
-
         public int AddPhone(Phone phone)
         {
             var maxId = _fileDb.Phones.Max(x => x.Id);
@@ -44,10 +35,10 @@ namespace CSB.Repository.Impl
         }
         public Position GetPosition(int employeeId)
         {
-            var existingEnoloyee = _fileDb.Employees.FirstOrDefault(x => x.Id == employeeId);
-            if (existingEnoloyee != null)
+            var existingEmployee = _fileDb.Employees.FirstOrDefault(x => x.Id == employeeId);
+            if (existingEmployee != null)
             {
-                return existingEnoloyee.Position;
+                return existingEmployee.Position;
             }
             return null;
         }
