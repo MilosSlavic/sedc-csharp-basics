@@ -36,11 +36,39 @@ namespace CSB.Business.Impl
         {
             return _fileDb.Employees.FirstOrDefault(x => x.Id == id);
         }*/
-        //int Create(Employee employee);
 
+        // public IReadOnlyCollection<T> GetAll() nema argumente tako da nemam na sta da trazim argument exception?
+        //int Create(Employee employee);
+        public int Create(Employee employee)
+        {
+            if (employee is null)
+            {
+                throw new ArgumentException(nameof(employee));
+            }
+
+            return _employeeRepository.Create(employee);
+        }
         //bool Update(Employee employee);
+        public bool Update(Employee employee)
+        {
+            if (employee is null)
+            {
+                throw new ArgumentException(nameof(employee));
+            }
+
+            return _employeeRepository.Update(employee);
+        }
 
         //bool Delete(int id);
+        public bool Delete(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException(nameof(id));
+            }
+
+            return _employeeRepository.Delete(id);
+        }
 
         //List<Employee> GetByName(string name);
         public List<Employee> GetByName(string name)
