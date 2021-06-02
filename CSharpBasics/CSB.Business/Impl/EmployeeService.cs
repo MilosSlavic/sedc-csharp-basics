@@ -4,6 +4,7 @@ using CSB.Repository.Entities;
 using CSB.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CSB.Business.Impl
 {
@@ -20,7 +21,7 @@ namespace CSB.Business.Impl
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentNullException(nameof(id));
             }
 
             var employee = _employeeRepository.GetById(id);
@@ -38,28 +39,28 @@ namespace CSB.Business.Impl
         }*/
 
         // public IReadOnlyCollection<T> GetAll() nema argumente tako da nemam na sta da trazim argument exception?
-        //int Create(Employee employee);
+        
         public int Create(Employee employee)
         {
             if (employee is null)
             {
-                throw new ArgumentException(nameof(employee));
+                throw new ArgumentNullException(nameof(employee));
             }
 
             return _employeeRepository.Create(employee);
         }
-        //bool Update(Employee employee);
+        
         public bool Update(Employee employee)
         {
             if (employee is null)
             {
-                throw new ArgumentException(nameof(employee));
+                throw new ArgumentNullException(nameof(employee));
             }
 
             return _employeeRepository.Update(employee);
         }
 
-        //bool Delete(int id);
+        
         public bool Delete(int id)
         {
             if (id <= 0)
@@ -70,8 +71,8 @@ namespace CSB.Business.Impl
             return _employeeRepository.Delete(id);
         }
 
-        //List<Employee> GetByName(string name);
-        public List<Employee> GetByName(string name)
+        
+        public IReadOnlyCollection<Employee> GetByName(string name)
         {
             if(name.Length == 0)
             {
@@ -79,7 +80,7 @@ namespace CSB.Business.Impl
             }
 
             var employees = _employeeRepository.GetByName(name);
-            if(employees.Count == 0)
+            if(employees.Any())
             {
                 throw new NotFoundException(nameof(List<Employee>));
             }
@@ -87,71 +88,71 @@ namespace CSB.Business.Impl
             return employees;
         }
 
-        //List<Employee> GetOlderThan(int age);
-        public List<Employee> GetOlderThan(int age)
+        
+        public IReadOnlyCollection<Employee> GetOlderThan(int age)
         {
 
             var employees = _employeeRepository.GetOlderThan(age);
-            if (employees.Count == 0)
+            if (employees.Any())
             {
                 throw new NotFoundException(nameof(List<Employee>));
             }
             
             return employees;
         }
-        //List<Employee> GetByGender(short gender);
-        public List<Employee> GetByGender(short gender)
+        
+        public IReadOnlyCollection<Employee> GetByGender(short gender)
         {
             var employees = _employeeRepository.GetByGender(gender);
-            if (employees.Count == 0)
+            if (employees.Any())
             {
                 throw new NotFoundException(nameof(List<Employee>));
             }
 
             return employees;
         }
-        //List<Employee> GetByPosition(string code);
-        public List<Employee> GetByPosition(string code)
+        
+        public IReadOnlyCollection<Employee> GetByPosition(string code)
         {
-            if (code.Length == 0)
+            if (String.IsNullOrEmpty(code))
             {
-                throw new ArgumentException(nameof(code));
+                throw new ArgumentNullException(nameof(code));
             }
 
             var employees = _employeeRepository.GetByPosition(code);
-            if (employees.Count == 0)
+            if (employees.Any())
             {
                 throw new NotFoundException(nameof(List<Employee>));
             }
 
             return employees;
         }
-        //List<Address> GetAddressByCity(string city);
-        public List<Address> GetAddressByCity(string city)
+        
+        public IReadOnlyCollection<Address> GetAddressByCity(string city)
         {
-            if (city.Length == 0)
+            if (String.IsNullOrEmpty(city))
             {
-                throw new ArgumentException(nameof(city));
+                throw new ArgumentNullException(nameof(city));
             }
 
             var employees = _employeeRepository.GetAddressByCity(city);
-            if (employees.Count == 0)
+            if (employees.Any())
             {
                 throw new NotFoundException(nameof(List<Employee>));
             }
 
             return employees;
         }
-        //List<Employee> GetPositionByCode(string code);
-        public List<Employee> GetPositionByCode(string code)
+        
+        public IReadOnlyCollection<Employee> GetPositionByCode(string code)
         {
-            if (code.Length == 0)
+            if (String.IsNullOrEmpty(code))
             {
-                throw new ArgumentException(nameof(code));
+                throw new ArgumentNullException(nameof(code));
             }
 
             var employees = _employeeRepository.GetPositionByCode(code);
-            if (employees.Count == 0)
+            if (employees.Any())
             {
                 throw new NotFoundException(nameof(List<Employee>));
             }
