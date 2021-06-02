@@ -10,6 +10,8 @@ namespace CSB.Repository.Entities
     {
         public int EmployeeId { get; set; }
 
+        public string FirstName { get; set; }
+
         public string Number { get; set; }
 
         public short Type { get; set; }
