@@ -15,10 +15,6 @@ namespace CSB.Repository.Impl
         {
             this.dbContext = dbContext;
         }
-        //promena
-        public List<Phone> GetByName(string name)
-        {
-            return dbContext.Phones.Where(x => x.FirstName == name).ToList();
-        }
+        
     }
 }

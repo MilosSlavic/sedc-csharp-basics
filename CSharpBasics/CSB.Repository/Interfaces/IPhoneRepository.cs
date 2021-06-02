@@ -11,6 +11,6 @@ namespace CSB.Repository.Interfaces
 {
     internal interface IPhoneRepository : IGenericRepository<Phone>
     {
-        List<Phone> GetByName(string name);
+        
     }
 }
