@@ -38,8 +38,15 @@ namespace CSB.Business.Impl
             return _fileDb.Employees.FirstOrDefault(x => x.Id == id);
         }*/
 
-        // public IReadOnlyCollection<T> GetAll() nema argumente tako da nemam na sta da trazim argument exception?
-        
+        public IReadOnlyCollection<Employee> GetAll()
+        {
+            var employees = _employeeRepository.GetAll();
+            if(employees.Any() == false)
+            {
+                throw new NotFoundException(nameof(IReadOnlyCollection<Employee>));
+            }
+            return employees;
+        }
         public int Create(Employee employee)
         {
             if (employee is null)
@@ -74,7 +81,7 @@ namespace CSB.Business.Impl
         
         public IReadOnlyCollection<Employee> GetByName(string name)
         {
-            if(name.Length == 0)
+            if(String.IsNullOrEmpty(name))
             {
                 throw new ArgumentException(nameof(name));
             }
