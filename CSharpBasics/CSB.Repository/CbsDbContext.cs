@@ -10,6 +10,11 @@ namespace CSB.Repository
 {
     public class CbsDbContext : DbContext
     {
+        public CbsDbContext(DbContextOptions options)
+            : base(options)
+        {
+        }
+
         public DbSet<Employee> Employees { get; }
 
         public DbSet<Address> Addresses { get; }

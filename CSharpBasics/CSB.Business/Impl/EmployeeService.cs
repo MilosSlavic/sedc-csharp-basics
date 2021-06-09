@@ -1,21 +1,29 @@
-﻿using CSB.Business.Exceptions;
+﻿using AutoMapper;
+using CSB.Business.Enums;
+using CSB.Business.Exceptions;
 using CSB.Business.Interfaces;
+using CSB.Business.Models;
 using CSB.Repository.Entities;
 using CSB.Repository.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace CSB.Business.Impl
 {
-    internal class EmployeeService : IEmployeeService
+    public class EmployeeService : IEmployeeService
     {
+        private readonly IMapper _mapper;
         private readonly IEmployeeRepository _employeeRepository;
 
-        public EmployeeService(IEmployeeRepository employeeRepository)
+        public EmployeeService(
+            IMapper mapper,
+            IEmployeeRepository employeeRepository)
         {
+            _mapper = mapper;
             _employeeRepository = employeeRepository;
         }
 
-        public Employee GetById(int id)
+        public GetEmployeeDto GetById(int id)
         {
             if (id <= 0)
             {
@@ -23,17 +31,18 @@ namespace CSB.Business.Impl
             }
 
             var employee = _employeeRepository.GetById(id);
-            if(employee is null)
+            if (employee is null)
             {
                 throw new NotFoundException(nameof(Employee));
             }
 
-            return employee;
+            return _mapper.Map<GetEmployeeDto>(employee);
         }
 
-        /*  public Employee GetById(int id)
+        public Task<int> CreateAsync(CreateEmployeeDto employee)
         {
-            return _fileDb.Employees.FirstOrDefault(x => x.Id == id);
-        }*/
+            var entity = _mapper.Map<Employee>(employee);
+            return _employeeRepository.CreateAsync(entity);
+        }
     }
 }

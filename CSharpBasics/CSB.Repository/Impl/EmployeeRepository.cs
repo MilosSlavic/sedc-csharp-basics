@@ -8,7 +8,7 @@ using System.Linq;
 namespace CSB.Repository.Impl
 {
 
-    internal class EmployeeRepository : GenericRepository<Employee>, IEmployeeRepository
+    public class EmployeeRepository : GenericRepository<Employee>, IEmployeeRepository
     {
         private readonly CbsDbContext dbContext;
         public EmployeeRepository(CbsDbContext dbContext) : base(dbContext)

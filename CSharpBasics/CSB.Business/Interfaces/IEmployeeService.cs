@@ -1,9 +1,12 @@
-﻿using CSB.Repository.Entities;
+﻿using CSB.Business.Models;
+using System.Threading.Tasks;
 
 namespace CSB.Business.Interfaces
 {
     public interface IEmployeeService
     {
-        Employee GetById(int id);
+        GetEmployeeDto GetById(int id);
+
+        Task<int> CreateAsync(CreateEmployeeDto employee);
     }
 }
