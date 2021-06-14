@@ -9,56 +9,67 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace CSB.Business.Impl
 {
-    internal class PositionService : GenericRepository<Position>, IPositionService
+    internal class PositionService : IPositionService
     {
-        private readonly CbsDbContext dbContext;
+        private readonly IPositionRepository _positionRepository;
 
-
-        public PositionService(CbsDbContext dbContext) : base(dbContext)
+        public PositionService(IPositionRepository positionRepository)
         {
-
+            this._positionRepository = positionRepository;
         }
-
-
-
         public int Create(Position item)
         {
-            dbContext.Set<Position>().Add(item);
-            dbContext.SaveChanges();
-            return item.Id;
+            if(item == null)
+            {
+                throw new ArgumentNullException();
+            }
+            return _positionRepository.Create(item);
 
         }
         public Position GetById(int id)
         {
-            return dbContext.Set<Position>().SingleOrDefault<Position>(x => x.Id == id);
+            if(id <= 0)
+            {
+                throw new ArgumentException();
+            }
+            return _positionRepository.GetById(id);
         }
 
         public bool Delete(int id)
         {
-            var item = GetById(id);
-            if (item == null)
+            if (id <= 0)
             {
-                return false;
+                throw new ArgumentException();
             }
-            dbContext.Set<Position>().Remove(item);
-            dbContext.SaveChanges();
-            return true;
+            return _positionRepository.Delete(id);
         }
 
         public IReadOnlyCollection<Position> GetAll()
         {
-            return dbContext.Set<Position>().ToList();
+            return _positionRepository.GetAll();
         }
 
 
         public bool Update(Position item)
         {
-            var entry = dbContext.Entry(item);
-            entry.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            dbContext.SaveChanges();
-            return true;
+            if (item == null)
+            {
+                throw new ArgumentNullException();
+            }
+            return _positionRepository.Update(item);
         }
+
+        public Position GetPositionByEmployeeId(int employeeId)
+        {
+            if (employeeId <= 0)
+            {
+                throw new ArgumentException();
+            }
+            return _positionRepository.GetPositionByEmployeeId(employeeId);
+        }
+
     }
 }

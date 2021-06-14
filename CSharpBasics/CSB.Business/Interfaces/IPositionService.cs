@@ -3,7 +3,7 @@ using CSB.Repository.GenericRepo;
 using System.Collections.Generic;
 namespace CSB.Business.Interfaces
 {
-    public interface IPositionService : IGenericRepository<Position>
+    public interface IPositionService
     {
         int Create(Position item);
 
