@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSB.Repository.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CSB.Repository.GenericRepo
 {
@@ -15,42 +16,45 @@ namespace CSB.Repository.GenericRepo
         {
             this.dbContext = dbContext;
         }
-        public T GetById(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            return dbContext.Set<T>().SingleOrDefault<T>(x => x.Id == id);
+            return await dbContext.Set<T>().FindAsync(id);
         }
 
-        public int Create(T item)
+        public async Task<int> CreateAsync(T item)
         {
             dbContext.Set<T>().Add(item);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return item.Id;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            var item = GetById(id);
+            var item = await GetByIdAsync(id);
+
             if (item == null)
             {
                 return false;
             }
 
             dbContext.Set<T>().Remove(item);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return true;
         }
 
-        public IReadOnlyCollection<T> GetAll()
+        public async Task<IReadOnlyCollection<T>> GetAllAsync()
         {
-            return dbContext.Set<T>().ToList();
+            return await dbContext.Set<T>().ToListAsync();
         }
 
-        public bool Update(T item)
+        public async Task<bool> UpdateAsync(T item)
         {
+
             var entry = dbContext.Entry(item);
             entry.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            dbContext.SaveChanges();
-            return true;
+            var rowsAffected = await dbContext.SaveChangesAsync();
+
+            return rowsAffected == 1;
         }
     }
 }
