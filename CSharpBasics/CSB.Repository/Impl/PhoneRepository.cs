@@ -7,7 +7,7 @@ using CSB.Repository.GenericRepo;
 
 namespace CSB.Repository.Impl
 {
-    public class PhoneRepository : PhoneRepository<Phone>, IPhoneRepository
+    public class PhoneRepository : GenericRepository<Phone>, IPhoneRepository
     {
         public PhoneRepository(CbsDbContext dbContext) : base(dbContext)
         {
