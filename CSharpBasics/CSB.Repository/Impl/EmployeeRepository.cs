@@ -4,6 +4,8 @@ using CSB.Repository.GenericRepo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CSB.Repository.Impl
 {
@@ -17,36 +19,38 @@ namespace CSB.Repository.Impl
         }
 
 
-        public List<Employee> GetByName(string name)
+        public async Task<IReadOnlyCollection<Employee>> GetByNameAsync(string name)
         {
-            return dbContext.Employees.Where(x => x.FirstName == name).ToList();
+            return await dbContext.Employees.Where(x => x.FirstName == name).ToListAsync();
+                   
         }
 
 
-        public List<Employee> GetOlderThan(int age)
+        public async Task<IReadOnlyCollection<Employee>> GetOlderThanAsync(int age)
         {
-            return dbContext.Employees.Where(x => Math.Abs(x.DateOfBirth.Subtract(DateTime.Today).Days) / 365 > age).ToList();
+            return await dbContext.Employees.Where(x => Math.Abs(x.DateOfBirth.Subtract(DateTime.Today).Days) / 365 > age).ToListAsync();
         }
-        public List<Employee> GetByGender(short gender)
+        public async Task<IReadOnlyCollection<Employee>> GetByGenderAsync(short gender)
         {
-            return dbContext.Employees.Where(x => x.Gender == gender).ToList();
-        }
-
-        public List<Employee> GetByPosition(string code)
-        {
-            return dbContext.Employees.Where(x => x.Position != null && x.Position.Code == code).ToList();
+            return await dbContext.Employees.Where(x => x.Gender == gender).ToListAsync();
         }
 
-        public List<Address> GetAddressByCity(string city)
+        public async Task<IReadOnlyCollection<Employee>> GetByPositionAsync(string code)
         {
-            List<Address> addressesList = dbContext.Addresses.Where(x => x.City == city).ToList();
+            return await dbContext.Employees.Where(x => x.Position != null && x.Position.Code == code).ToListAsync();
+        }
+
+        public async Task<IReadOnlyCollection<Address>> GetAddressByCityAsync(string city)
+        {
+           IReadOnlyCollection<Address> addressesList =await dbContext.Addresses.Where(x => x.City == city).ToListAsync();
 
             return addressesList;
         }
 
-        public List<Employee> GetPositionByCode(string code)
+        public async Task<IReadOnlyCollection<Position>> GetPositionByCodeAsync(string code)
+        public async Task<IReadOnlyCollection<Position>> GetPositionByCodeAsync(string code)
         {
-            List<Employee> pos = dbContext.Employees.Where(x => x.Position.Code == code).ToList();
+            IReadOnlyCollection<Position> pos = await dbContext.Positions.Where(x => x.Code == code).ToListAsync();
 
             return pos;
         }
