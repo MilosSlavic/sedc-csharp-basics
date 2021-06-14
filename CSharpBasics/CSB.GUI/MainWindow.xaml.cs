@@ -1,4 +1,5 @@
 ﻿using CSB.Business.Interfaces;
+using CSB.GUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,35 +28,39 @@ namespace CSB.GUI
         {
             InitializeComponent();
             _employeeService = employeeService;
+            var vm = new MainEmployeeViewModel(_employeeService);
+            DataContext = vm;
         }
 
-        public void LoadAll()
-        {
-            var employee = _employeeService.GetById(1);
-            lblFName.Content = employee.FirstName;
-            lblLName.Content = employee.LastName;
-            lblGender.Content = employee.Gender.ToString();
-            lblDateOfBirth.Content = employee.DateOfBirth.ToString("dd.MM.yyyy");
-            lblEmail.Content = employee.Email;
-            //await Task.Delay(10000);
-            Task.Delay(5000)
-                .ContinueWith(_ =>
-                {
-                    this.Dispatcher.Invoke(() =>
-                    {
-                        lblFName.Content = "firstname";
-                    });
-                });//.GetAwaiter().GetResult();
-        }
+        #region old
+        //public void LoadAll()
+        //{
+        //    var employee = _employeeService.GetById(1);
+        //    lblFName.Content = employee.FirstName;
+        //    lblLName.Content = employee.LastName;
+        //    lblGender.Content = employee.Gender.ToString();
+        //    lblDateOfBirth.Content = employee.DateOfBirth.ToString("dd.MM.yyyy");
+        //    lblEmail.Content = employee.Email;
+        //    //await Task.Delay(10000);
+        //    Task.Delay(5000)
+        //        .ContinueWith(_ =>
+        //        {
+        //            this.Dispatcher.Invoke(() =>
+        //            {
+        //                lblFName.Content = "firstname";
+        //            });
+        //        });//.GetAwaiter().GetResult();
+        //}
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            LoadAll();
-        }
+        //private void button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    LoadAll();
+        //}
 
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("CLICKED");
-        }
+        //private void button1_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MessageBox.Show("CLICKED");
+        //}
+        #endregion
     }
 }

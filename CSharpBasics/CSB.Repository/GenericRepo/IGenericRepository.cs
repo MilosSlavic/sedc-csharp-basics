@@ -18,6 +18,6 @@ namespace CSB.Repository.GenericRepo
 
         T GetById(int id);
 
-        IReadOnlyCollection<T> GetAll();
+        Task<IReadOnlyCollection<T>> GetAllAsync();
     }
 }

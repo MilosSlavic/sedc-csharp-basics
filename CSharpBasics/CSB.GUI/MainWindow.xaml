@@ -7,13 +7,24 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="163,275,0,0" VerticalAlignment="Top" Click="button_Click"/>
-        <Label x:Name="lblFName" Content="Label" HorizontalAlignment="Left" Margin="214,41,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblLName" Content="Label" HorizontalAlignment="Left" Margin="314,41,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblGender" Content="Label" HorizontalAlignment="Left" Margin="414,41,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblDateOfBirth" Content="Label" HorizontalAlignment="Left" Margin="514,41,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblEmail" Content="Label" HorizontalAlignment="Left" Margin="614,41,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="452,257,0,0" VerticalAlignment="Top" Click="button1_Click"/>
+        <DataGrid x:Name="dataGrid"
+                  Margin="0,0,0,60"
+                  ItemsSource="{Binding Employees}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="E-mail" Binding="{Binding Email}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="button" 
+                Height="20" 
+                Width="40"
+                Content="Fetch" 
+                Margin="0,0,10,10" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom"
+                Command="{Binding GetEmployeesCommand}"/>
 
     </Grid>
 </Window>

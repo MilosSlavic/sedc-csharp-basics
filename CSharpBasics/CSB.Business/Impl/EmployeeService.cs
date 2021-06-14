@@ -6,6 +6,7 @@ using CSB.Business.Models;
 using CSB.Repository.Entities;
 using CSB.Repository.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CSB.Business.Impl
@@ -43,6 +44,12 @@ namespace CSB.Business.Impl
         {
             var entity = _mapper.Map<Employee>(employee);
             return _employeeRepository.CreateAsync(entity);
+        }
+
+        public async Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync()
+        {
+            var result = await _employeeRepository.GetAllAsync();
+            return _mapper.Map<IReadOnlyCollection<GetEmployeeDto>>(result);
         }
     }
 }

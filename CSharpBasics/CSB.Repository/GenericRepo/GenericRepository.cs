@@ -1,9 +1,8 @@
-﻿using System;
+﻿using CSB.Repository.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using CSB.Repository.Entities;
 
 namespace CSB.Repository.GenericRepo
 {
@@ -40,9 +39,9 @@ namespace CSB.Repository.GenericRepo
             return true;
         }
 
-        public IReadOnlyCollection<T> GetAll()
+        public async Task<IReadOnlyCollection<T>> GetAllAsync()
         {
-            return dbContext.Set<T>().ToList();
+            return await dbContext.Set<T>().ToListAsync();
         }
 
         public bool Update(T item)
