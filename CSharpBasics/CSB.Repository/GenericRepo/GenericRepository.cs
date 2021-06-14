@@ -1,9 +1,8 @@
-﻿using System;
+﻿using CSB.Repository.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using CSB.Repository.Entities;
 
 namespace CSB.Repository.GenericRepo
 {
@@ -20,10 +19,10 @@ namespace CSB.Repository.GenericRepo
             return dbContext.Set<T>().SingleOrDefault<T>(x => x.Id == id);
         }
 
-        public int Create(T item)
+        public async Task<int> CreateAsync(T item)
         {
             dbContext.Set<T>().Add(item);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return item.Id;
         }
 
@@ -40,9 +39,9 @@ namespace CSB.Repository.GenericRepo
             return true;
         }
 
-        public IReadOnlyCollection<T> GetAll()
+        public async Task<IReadOnlyCollection<T>> GetAllAsync()
         {
-            return dbContext.Set<T>().ToList();
+            return await dbContext.Set<T>().ToListAsync();
         }
 
         public bool Update(T item)

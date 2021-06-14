@@ -10,7 +10,7 @@ namespace CSB.Repository.GenericRepo
     public interface IGenericRepository<T> where T : BaseEntity
     {
         //treba metode: create, update, delete, getAll, getById
-        int Create(T item);
+        Task<int> CreateAsync(T item);
 
         bool Update(T item);
 
@@ -18,6 +18,6 @@ namespace CSB.Repository.GenericRepo
 
         T GetById(int id);
 
-        IReadOnlyCollection<T> GetAll();
+        Task<IReadOnlyCollection<T>> GetAllAsync();
     }
 }

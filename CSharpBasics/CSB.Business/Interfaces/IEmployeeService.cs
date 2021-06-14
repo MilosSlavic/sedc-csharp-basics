@@ -1,6 +1,11 @@
+
 ﻿using CSB.Business.Enums;
 using CSB.Repository.Entities;
 using System.Collections.Generic;
+﻿using CSB.Business.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 
 namespace CSB.Business.Interfaces
 {
@@ -27,5 +32,11 @@ namespace CSB.Business.Interfaces
         IReadOnlyCollection<Address> GetAddressByCity(string city);
 
         IReadOnlyCollection<Employee> GetPositionByCode(string code);
+
+        GetEmployeeDto GetById(int id);
+
+        Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync();
+
+        Task<int> CreateAsync(CreateEmployeeDto employee);
     }
 }
