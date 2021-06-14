@@ -1,4 +1,5 @@
-﻿using CSB.Business.Exceptions;
+﻿using CSB.Business.Enums;
+using CSB.Business.Exceptions;
 using CSB.Business.Interfaces;
 using CSB.Repository.Entities;
 using CSB.Repository.Interfaces;
@@ -33,20 +34,16 @@ namespace CSB.Business.Impl
             return employee;
         }
 
-        /*  public Employee GetById(int id)
-        {
-            return _fileDb.Employees.FirstOrDefault(x => x.Id == id);
-        }*/
-
         public IReadOnlyCollection<Employee> GetAll()
         {
             var employees = _employeeRepository.GetAll();
             if(employees.Any() == false)
             {
-                throw new NotFoundException(nameof(IReadOnlyCollection<Employee>));
+                throw new NotFoundException(nameof(Employee));
             }
             return employees;
         }
+
         public int Create(Employee employee)
         {
             if (employee is null)
@@ -102,18 +99,18 @@ namespace CSB.Business.Impl
             var employees = _employeeRepository.GetOlderThan(age);
             if (employees.Any())
             {
-                throw new NotFoundException(nameof(List<Employee>));
+                throw new NotFoundException(nameof(Employee));
             }
             
             return employees;
         }
         
-        public IReadOnlyCollection<Employee> GetByGender(short gender)
+        public IReadOnlyCollection<Employee> GetByGender(Gender gender)
         {
-            var employees = _employeeRepository.GetByGender(gender);
+            var employees = _employeeRepository.GetByGender((short)gender);
             if (employees.Any())
             {
-                throw new NotFoundException(nameof(List<Employee>));
+                throw new NotFoundException(nameof(Employee));
             }
 
             return employees;
@@ -129,7 +126,7 @@ namespace CSB.Business.Impl
             var employees = _employeeRepository.GetByPosition(code);
             if (employees.Any())
             {
-                throw new NotFoundException(nameof(List<Employee>));
+                throw new NotFoundException(nameof(Employee));
             }
 
             return employees;
@@ -137,7 +134,7 @@ namespace CSB.Business.Impl
         
         public IReadOnlyCollection<Address> GetAddressByCity(string city)
         {
-            if (String.IsNullOrEmpty(city))
+            if (string.IsNullOrEmpty(city))
             {
                 throw new ArgumentNullException(nameof(city));
             }
@@ -145,7 +142,7 @@ namespace CSB.Business.Impl
             var employees = _employeeRepository.GetAddressByCity(city);
             if (employees.Any())
             {
-                throw new NotFoundException(nameof(List<Employee>));
+                throw new NotFoundException(nameof(Employee));
             }
 
             return employees;
@@ -153,7 +150,7 @@ namespace CSB.Business.Impl
         
         public IReadOnlyCollection<Employee> GetPositionByCode(string code)
         {
-            if (String.IsNullOrEmpty(code))
+            if (string.IsNullOrEmpty(code))
             {
                 throw new ArgumentNullException(nameof(code));
             }

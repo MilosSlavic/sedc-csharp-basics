@@ -1,4 +1,5 @@
-﻿using CSB.Repository.Entities;
+﻿using CSB.Business.Enums;
+using CSB.Repository.Entities;
 using System.Collections.Generic;
 
 namespace CSB.Business.Interfaces
@@ -19,7 +20,7 @@ namespace CSB.Business.Interfaces
 
         IReadOnlyCollection<Employee> GetOlderThan(int age);
 
-        IReadOnlyCollection<Employee> GetByGender(short gender);
+        IReadOnlyCollection<Employee> GetByGender(Gender gender);
 
         IReadOnlyCollection<Employee> GetByPosition(string code);
 
