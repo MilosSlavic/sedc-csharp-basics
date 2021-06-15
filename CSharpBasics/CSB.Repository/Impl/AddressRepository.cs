@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CSB.Repository.Entities;
 using CSB.Repository.Interfaces;
 using CSB.Repository.GenericRepo;
+using Microsoft.EntityFrameworkCore;
 
 namespace CSB.Repository.Impl
 {
@@ -18,9 +19,9 @@ namespace CSB.Repository.Impl
 
         private readonly CbsDbContext dbContext;
 
-        public IReadOnlyList<Address> GetAddresses(int employeeId)
+        public async Task<IReadOnlyList<Address>> GetAddressesAsync(int employeeId)
         {
-            return dbContext.Addresses.Where(x => x.EmployeeId == employeeId).ToList();
+            return await dbContext.Addresses.Where(x => x.EmployeeId == employeeId).ToListAsync();
         }
     }
 }
