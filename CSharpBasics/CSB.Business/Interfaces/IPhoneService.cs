@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CSB.Repository.Entities;
 
 namespace CSB.Business.Interfaces
 {
     public interface IPhoneService
     {
-        int Create(Phone phone);
+          Task<int> CreateAsync(Phone phone);
 
-        bool Update(Phone phone);
+          Task<bool> UpdateAsync(Phone phone);
 
-        bool Delete(int id);
+          Task<bool> DeleteAsync(int id);
 
-        Phone GetById(int id);
+          Task<Phone> GetByIdAsync(int id);
 
-        IReadOnlyCollection<Phone> GetAll();
+          Task IReadOnlyCollectionAsync<Phone> GetAll();
     }
 }

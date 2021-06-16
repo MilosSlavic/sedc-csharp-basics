@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CSB.Business.Interfaces;
 using CSB.Repository.Entities;
 using CSB.Repository.Interfaces;
@@ -15,49 +16,55 @@ namespace CSB.Business.Impl
         {
             this._phoneRepository = phoneRepository;
         }
-        public int Create(Phone phone)
+        
+        public async Task<int> CreateAsync(Phone phone)
+        //public int Create (Phone phone)
         {
             if (phone is null)
             {
                 throw new ArgumentNullException();
             }
-            
-            return _phoneRepository.Create(phone);
+
+            return await _phoneRepository.Create(phone);
         }
 
-        public bool Update(Phone phone)
+        public async Task<bool> UpdateAsync(Phone phone)
+        //public int Update (Phone phone)
         {
             if (phone is null)
             {
                 throw new ArgumentNullException();
             }
-            return _phoneRepository.Update(phone);
+            return await _phoneRepository.Update(phone);
         }
 
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
+        //public int Delete (int id)
         {
-            
+
             if (id <= 0)
             {
                 throw new ArgumentException();
             }
-            return _phoneRepository.Delete(id);
+            return await _phoneRepository.Delete(id);
            
         }
 
-        public IReadOnlyCollection<Phone> GetAll()
+        public async Task IReadOnlyCollectionAsync<Phone>GetAll()
+        //public IReadOnlyCollection<Phone> GetAll()
         {
-            return _phoneRepository.GetAll();
+            return await _phoneRepository.GetAll();
         }
 
 
-        public Phone GetById(int id)
+        public async Task <Phone> GetByIdAsync(int id)
+        //public Phone GetById (int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException();
             }
-            return _phoneRepository.GetById(id);
+            return await _phoneRepository.GetById(id);
         }
     }
 }
