@@ -10,17 +10,17 @@ namespace CSB.Repository.Interfaces
 {
     public interface IEmployeeRepository : IGenericRepository<Employee>
     {
-        List<Employee> GetByName(string name);
+        Task <IReadOnlyCollection<Employee>> GetByNameAsync(string name);
 
-        List<Employee> GetOlderThan(int age);
+        Task<IReadOnlyCollection<Employee>> GetOlderThanAsync(int age);
 
-        List<Employee> GetByGender(short gender);
+        Task<IReadOnlyCollection<Employee>> GetByGenderAsync(short gender);
 
-        List<Employee> GetByPosition(string code);
+        Task<IReadOnlyCollection<Employee>> GetByPositionAsync(string code);
 
-        List<Address> GetAddressByCity(string city);
+        Task<IReadOnlyCollection<Address>> GetAddressByCityAsync(string city);
 
-        List<Employee> GetPositionByCode(string code);
+        Task<IReadOnlyCollection<Position>> GetPositionByCodeAsync(string code);
 
 
 
