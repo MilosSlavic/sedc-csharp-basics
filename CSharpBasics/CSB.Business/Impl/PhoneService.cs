@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CSB.Business.Interfaces;
 using CSB.Repository.Entities;
 using CSB.Repository.Interfaces;
@@ -15,49 +16,49 @@ namespace CSB.Business.Impl
         {
             this._phoneRepository = phoneRepository;
         }
-        public int Create(Phone phone)
+        public Task<int> CreateAsync(Phone phone)
         {
             if (phone is null)
             {
                 throw new ArgumentNullException();
             }
             
-            return _phoneRepository.Create(phone);
+            return _phoneRepository.CreateAsync(phone);
         }
 
-        public bool Update(Phone phone)
+        public Task<bool> UpdateAsync(Phone phone)
         {
             if (phone is null)
             {
                 throw new ArgumentNullException();
             }
-            return _phoneRepository.Update(phone);
+            return _phoneRepository.UpdateAsync(phone);
         }
 
-        public bool Delete(int id)
+        public Task<bool> DeleteAsync(int id)
         {
             
             if (id <= 0)
             {
                 throw new ArgumentException();
             }
-            return _phoneRepository.Delete(id);
+            return _phoneRepository.DeleteAsync(id);
            
         }
 
-        public IReadOnlyCollection<Phone> GetAll()
+        public Task<IReadOnlyCollection<Phone>> GetAllAsync()
         {
-            return _phoneRepository.GetAll();
+            return _phoneRepository.GetAllAsync();
         }
 
 
-        public Phone GetById(int id)
+        public Task<Phone> GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException();
             }
-            return _phoneRepository.GetById(id);
+            return _phoneRepository.GetByIdAsync(id);
         }
     }
 }

@@ -38,17 +38,18 @@ namespace CSB.Business.Impl
                 throw new NotFoundException(nameof(Employee));
             }
 
-            return await _mapper.Map<GetEmployeeDto>(employee);
+            return _mapper.Map<GetEmployeeDto>(employee);
         }
 
-        public async Task<IReadOnlyCollection<Employee>> GetAllAsync()
+        public async Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync()
         {
             var employees = await _employeeRepository.GetAllAsync();
-            if(employees.Any() == false)
+            if (employees.Any() == false)
             {
                 throw new NotFoundException(nameof(Employee));
             }
-            return employees;
+
+            return _mapper.Map<IReadOnlyCollection<GetEmployeeDto>>(employees);
         }
         /*public async Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync()
         {
@@ -60,14 +61,14 @@ namespace CSB.Business.Impl
             var entity = _mapper.Map<Employee>(employee);
             return _employeeRepository.CreateAsync(entity);
         }*/
-        public async Task<int> CreateAsync(Employee employee)
+        public async Task<int> CreateAsync(CreateEmployeeDto employee)
         {
             if (employee is null)
             {
                 throw new ArgumentNullException(nameof(employee));
             }
-
-            return await _employeeRepository.CreateAsync(employee);
+            var entity = _mapper.Map<Employee>(employee);
+            return await _employeeRepository.CreateAsync(entity);
         }
 
         public async Task<bool> UpdateAsync(Employee employee)
@@ -105,7 +106,7 @@ namespace CSB.Business.Impl
                 throw new NotFoundException(nameof(List<Employee>));
             }
 
-            return await employees;
+            return employees;
         }
 
         
@@ -118,7 +119,7 @@ namespace CSB.Business.Impl
                 throw new NotFoundException(nameof(Employee));
             }
             
-            return await employees;
+            return employees;
         }
         
         public async Task<IReadOnlyCollection<Employee>> GetByGenderAsync(Gender gender)
@@ -129,7 +130,7 @@ namespace CSB.Business.Impl
                 throw new NotFoundException(nameof(Employee));
             }
 
-            return await employees;
+            return employees;
         }
         
         public async Task<IReadOnlyCollection<Employee>> GetByPositionAsync(string code)
@@ -145,7 +146,7 @@ namespace CSB.Business.Impl
                 throw new NotFoundException(nameof(Employee));
             }
 
-            return await employees;
+            return employees;
         }
         
         public async Task<IReadOnlyCollection<Address>> GetAddressByCityAsync(string city)
@@ -161,10 +162,10 @@ namespace CSB.Business.Impl
                 throw new NotFoundException(nameof(Employee));
             }
 
-            return await employees;
+            return employees;
         }
         
-        public async Task<IReadOnlyCollection<Employee>> GetPositionByCodeAsync(string code)
+        public async Task<IReadOnlyCollection<Position>> GetPositionByCodeAsync(string code)
         {
             if (string.IsNullOrEmpty(code))
             {
@@ -177,7 +178,7 @@ namespace CSB.Business.Impl
                 throw new NotFoundException(nameof(List<Employee>));
             }
 
-            return await employees;
+            return employees;
         }
         
         

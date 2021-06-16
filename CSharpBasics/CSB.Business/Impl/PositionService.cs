@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace CSB.Business.Impl
 {
@@ -20,46 +20,46 @@ namespace CSB.Business.Impl
         {
             this._positionRepository = positionRepository;
         }
-        public int Create(Position item)
+        public Task<int> CreateAsync(Position item)
         {
             if(item == null)
             {
                 throw new ArgumentNullException();
             }
-            return _positionRepository.Create(item);
+            return _positionRepository.CreateAsync(item);
 
         }
-        public Position GetById(int id)
+        public Task<Position> GetByIdAsync(int id)
         {
             if(id <= 0)
             {
                 throw new ArgumentException();
             }
-            return _positionRepository.GetById(id);
+            return _positionRepository.GetByIdAsync(id);
         }
 
-        public bool Delete(int id)
+        public Task<bool> DeleteAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException();
             }
-            return _positionRepository.Delete(id);
+            return _positionRepository.DeleteAsync(id);
         }
 
-        public IReadOnlyCollection<Position> GetAll()
+        public Task<IReadOnlyCollection<Position>> GetAllAsync()
         {
-            return _positionRepository.GetAll();
+            return _positionRepository.GetAllAsync();
         }
 
 
-        public bool Update(Position item)
+        public Task<bool> UpdateAsync(Position item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException();
             }
-            return _positionRepository.Update(item);
+            return _positionRepository.UpdateAsync(item);
         }
 
         public Position GetPositionByEmployeeId(int employeeId)

@@ -12,9 +12,9 @@ namespace CSB.Business.Interfaces
     {
         Task<GetEmployeeDto> GetByIdAsync(int id);
 
-        Task<IReadOnlyCollection<Employee>> GetAllAsync();
+        Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync();
 
-        Task<int> CreateAsync(Employee employee);
+        Task<int> CreateAsync(CreateEmployeeDto employee);
 
         Task<bool> UpdateAsync(Employee employee);
 
@@ -30,7 +30,7 @@ namespace CSB.Business.Interfaces
 
         Task<IReadOnlyCollection<Address>> GetAddressByCityAsync(string city);
 
-        Task<IReadOnlyCollection<Employee>> GetPositionByCodeAsync(string code);
+        Task<IReadOnlyCollection<Position>> GetPositionByCodeAsync(string code);
 
         //Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync();
 
