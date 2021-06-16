@@ -1,7 +1,5 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using CSB.Repository.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +29,6 @@ namespace CSB.Repository.GenericRepo
         public async Task<bool> DeleteAsync(int id)
         {
             var item = await GetByIdAsync(id);
-
             if (item == null)
             {
                 return false;

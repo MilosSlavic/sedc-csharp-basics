@@ -1,21 +1,84 @@
 ﻿using CSB.Business;
+using CSB.Business.Enums;
 using CSB.Business.Exceptions;
 using CSB.Business.Interfaces;
+using CSB.Business.Impl;
 using CSB.Repository;
 using CSB.Repository.Entities;
-using CSB.Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.CommandLine;
+using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 using cli = System.Console;
+using AutoMapper;
+using CSB.Repository.Interfaces;
+using CSB.Repository.Impl;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq.Expressions;
 
 namespace CSB.Console
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
+            var rootCommand = new RootCommand
+            {
+                new Option<string>(
+                    "--fName",
+                    description: "Employee first name"),
+                new Option<string>(
+                    "--lName",
+                    "Employee last name"),
+                new Option<Gender>(
+                    "--gender",
+                    "Employee gender"),
+                new Option<string>(
+                    "--dob",
+                    "Employee date of birth"),
+                new Option<string>(
+                    "--email",
+                    "Employee email")
+            };
+
+            rootCommand.Description = "My sample app";
+
+            // Note that the parameters of the handler method are matched according to the names of the options
+            rootCommand.Handler = CommandHandler
+                .Create<string, string, Gender, string, string>(
+                async (fName, lName, gender, dob, email) =>
+                {
+                    Debugger.Launch();
+                    IMapper mapper = new MapperConfiguration(cfg => cfg.AddProfile<BusinessProfile>())
+                        .CreateMapper();
+                    var dbContextOptionsBuilder = new DbContextOptionsBuilder<CbsDbContext>();
+                    dbContextOptionsBuilder.UseSqlite("Data Source=file.db");
+                    var dbContext = new CbsDbContext(dbContextOptionsBuilder.Options);
+                    await dbContext.Database.EnsureCreatedAsync();
+                    IEmployeeRepository employeeRepository = new EmployeeRepository(dbContext);
+                    IEmployeeService employeeService = new EmployeeService(mapper, employeeRepository);
+
+                    var id = await employeeService.CreateAsync(new Business.Models.CreateEmployeeDto
+                    {
+                        FirstName = fName,
+                        LastName = lName,
+                        Gender = gender,
+                        Email = email,
+                        DateOfBirth = DateTime.ParseExact(dob, "dd.MM.yyyy.", CultureInfo.CurrentCulture)
+                    });
+
+                    cli.WriteLine($"Created employee. Id: '{id}'");
+                }
+            );
+
+            await rootCommand.InvokeAsync(args);
+
+            #region Obnavljanje
             //IEmployeeRepository repositoryImpl = ImplementationProvider.GetEmployeeRepositoryImpl();
             //cli.WriteLine(repositoryImpl.GetType());
 
@@ -36,6 +99,7 @@ namespace CSB.Console
             //HighMemoryConsumption();
 
             //SomeAsync().GetAwaiter().GetResult();
+            #endregion
         }
 
         static Task SomeAsync()
@@ -98,13 +162,13 @@ namespace CSB.Console
             var employeeService = scope.ServiceProvider.GetRequiredService<IEmployeeService>();
             try
             {
-                var employee = employeeService.GetById(123);
+                var employee = employeeService.GetByIdAsync(123);
             }
             catch (NotFoundException nfEx)
             {
                 // ... 404
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
             }
         }

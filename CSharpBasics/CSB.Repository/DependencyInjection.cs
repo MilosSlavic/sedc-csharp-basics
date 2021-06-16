@@ -14,7 +14,6 @@ namespace CSB.Repository
         public static void AddRepository(this IServiceCollection services)
         {
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IEmployeeDetailsRepository, EmployeeDetailsRepository>();
         }
     }
 }
