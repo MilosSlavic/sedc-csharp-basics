@@ -3,7 +3,6 @@
 using CSB.Repository.Entities;
 using System.Collections.Generic;
 ﻿using CSB.Business.Models;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
@@ -11,32 +10,30 @@ namespace CSB.Business.Interfaces
 {
     public interface IEmployeeService
     {
-        Employee GetById(int id);
+        Task<GetEmployeeDto> GetByIdAsync(int id);
 
-        IReadOnlyCollection<Employee> GetAll();
+        Task<IReadOnlyCollection<Employee>> GetAllAsync();
 
-        int Create(Employee employee);
+        Task<int> CreateAsync(Employee employee);
 
-        bool Update(Employee employee);
+        Task<bool> UpdateAsync(Employee employee);
 
-        bool Delete(int id);
+        Task<bool> DeleteAsync(int id);
 
-        IReadOnlyCollection<Employee> GetByName(string name);
+        Task<IReadOnlyCollection<Employee>> GetByNameAsync(string name);
 
-        IReadOnlyCollection<Employee> GetOlderThan(int age);
+        Task<IReadOnlyCollection<Employee>> GetOlderThanAsync(int age);
 
-        IReadOnlyCollection<Employee> GetByGender(Gender gender);
+        Task<IReadOnlyCollection<Employee>> GetByGenderAsync(Gender gender);
 
-        IReadOnlyCollection<Employee> GetByPosition(string code);
+        Task<IReadOnlyCollection<Employee>> GetByPositionAsync(string code);
 
-        IReadOnlyCollection<Address> GetAddressByCity(string city);
+        Task<IReadOnlyCollection<Address>> GetAddressByCityAsync(string city);
 
-        IReadOnlyCollection<Employee> GetPositionByCode(string code);
+        Task<IReadOnlyCollection<Employee>> GetPositionByCodeAsync(string code);
 
-        GetEmployeeDto GetById(int id);
+        //Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync();
 
-        Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync();
-
-        Task<int> CreateAsync(CreateEmployeeDto employee);
+        //Task<int> CreateAsync(CreateEmployeeDto employee);
     }
 }
