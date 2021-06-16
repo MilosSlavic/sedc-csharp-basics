@@ -18,7 +18,7 @@ namespace CSB.Repository.GenericRepo
         }
         public async Task<T> GetByIdAsync(int id)
         {
-            return await dbContext.Set<T>().FindAsync(id);
+            return await dbContext.Set<T>().SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<int> CreateAsync(T item)
