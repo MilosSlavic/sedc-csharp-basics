@@ -24,6 +24,10 @@ namespace CSB.GUI
             ServiceCollection services = new ServiceCollection();
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
+            this.DispatcherUnhandledException += (sender, @event) =>
+            {
+                MessageBox.Show(@event.Exception.Message);
+            };
         }
 
         private void ConfigureServices(ServiceCollection services)
