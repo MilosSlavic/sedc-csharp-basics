@@ -62,7 +62,7 @@ namespace CSB.Business.Impl
             return _positionRepository.Update(item);
         }
 
-        public async Task<Position> GetPositionByEmployeeId(int employeeId)
+        public async Task<Position> GetPositionByEmployeeIdAsync(int employeeId)
         {
             if (employeeId <= 0)
             {
