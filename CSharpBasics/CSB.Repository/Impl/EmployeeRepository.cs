@@ -48,7 +48,6 @@ namespace CSB.Repository.Impl
         }
 
         public async Task<IReadOnlyCollection<Position>> GetPositionByCodeAsync(string code)
-        public async Task<IReadOnlyCollection<Position>> GetPositionByCodeAsync(string code)
         {
             IReadOnlyCollection<Position> pos = await dbContext.Positions.Where(x => x.Code == code).ToListAsync();
 
