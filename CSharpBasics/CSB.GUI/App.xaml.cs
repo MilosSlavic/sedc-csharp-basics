@@ -41,6 +41,8 @@ namespace CSB.GUI
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
+            var dbContext = serviceProvider.GetRequiredService<CbsDbContext>();
+            dbContext.Database.EnsureCreated();
             var mainWindow = serviceProvider.GetService<MainWindow>();
             mainWindow.Show();
         }
