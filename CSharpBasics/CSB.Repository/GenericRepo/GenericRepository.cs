@@ -14,9 +14,9 @@ namespace CSB.Repository.GenericRepo
         {
             this.dbContext = dbContext;
         }
-        public T GetById(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            return dbContext.Set<T>().SingleOrDefault<T>(x => x.Id == id);
+            return await dbContext.Set<T>().FindAsync(id);
         }
 
         public async Task<int> CreateAsync(T item)
@@ -26,16 +26,16 @@ namespace CSB.Repository.GenericRepo
             return item.Id;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            var item = GetById(id);
+            var item = await GetByIdAsync(id);
             if (item == null)
             {
                 return false;
             }
 
             dbContext.Set<T>().Remove(item);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return true;
         }
 
@@ -44,12 +44,13 @@ namespace CSB.Repository.GenericRepo
             return await dbContext.Set<T>().ToListAsync();
         }
 
-        public bool Update(T item)
+        public async Task<bool> UpdateAsync(T item)
         {
             var entry = dbContext.Entry(item);
             entry.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            dbContext.SaveChanges();
-            return true;
+            var rowsAffected = await dbContext.SaveChangesAsync();
+
+            return rowsAffected == 1;
         }
     }
 }

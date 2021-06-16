@@ -25,14 +25,14 @@ namespace CSB.Business.Impl
             _employeeRepository = employeeRepository;
         }
 
-        public GetEmployeeDto GetById(int id)
+        public async Task<GetEmployeeDto> GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            var employee = _employeeRepository.GetById(id);
+            var employee = await _employeeRepository.GetByIdAsync(id);
             if (employee is null)
             {
                 throw new NotFoundException(nameof(Employee));
@@ -41,56 +41,66 @@ namespace CSB.Business.Impl
             return _mapper.Map<GetEmployeeDto>(employee);
         }
 
-        public IReadOnlyCollection<Employee> GetAll()
+        public async Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync()
         {
-            var employees = _employeeRepository.GetAll();
-            if(employees.Any() == false)
+            var employees = await _employeeRepository.GetAllAsync();
+            if (employees.Any() == false)
             {
                 throw new NotFoundException(nameof(Employee));
             }
-            return employees;
+
+            return _mapper.Map<IReadOnlyCollection<GetEmployeeDto>>(employees);
+        }
+        /*public async Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync()
+        {
+            var result = await _employeeRepository.GetAllAsync();
+            return _mapper.Map<IReadOnlyCollection<GetEmployeeDto>>(result);
+        }*/
+        /*public Task<int> CreateAsync(CreateEmployeeDto employee)
+        {
+            var entity = _mapper.Map<Employee>(employee);
+            return _employeeRepository.CreateAsync(entity);
+        }*/
+        public async Task<int> CreateAsync(CreateEmployeeDto employee)
+        {
+            if (employee is null)
+            {
+                throw new ArgumentNullException(nameof(employee));
+            }
+            var entity = _mapper.Map<Employee>(employee);
+            return await _employeeRepository.CreateAsync(entity);
         }
 
-        public int Create(Employee employee)
+        public async Task<bool> UpdateAsync(Employee employee)
         {
             if (employee is null)
             {
                 throw new ArgumentNullException(nameof(employee));
             }
 
-            return _employeeRepository.Create(employee);
-        }
-        
-        public bool Update(Employee employee)
-        {
-            if (employee is null)
-            {
-                throw new ArgumentNullException(nameof(employee));
-            }
-
-            return _employeeRepository.Update(employee);
+            return await _employeeRepository.UpdateAsync(employee);
         }
 
         
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return _employeeRepository.Delete(id);
+            return await _employeeRepository.DeleteAsync(id);
         }
 
         
-        public IReadOnlyCollection<Employee> GetByName(string name)
+        public async Task<IReadOnlyCollection<Employee>> GetByNameAsync(string name)
         {
             if(String.IsNullOrEmpty(name))
             {
                 throw new ArgumentException(nameof(name));
             }
 
-            var employees = _employeeRepository.GetByName(name);
+            var employees = await _employeeRepository.GetByNameAsync(name);
             if(employees.Any())
             {
                 throw new NotFoundException(nameof(List<Employee>));
@@ -100,10 +110,10 @@ namespace CSB.Business.Impl
         }
 
         
-        public IReadOnlyCollection<Employee> GetOlderThan(int age)
+        public async Task<IReadOnlyCollection<Employee>> GetOlderThanAsync(int age)
         {
 
-            var employees = _employeeRepository.GetOlderThan(age);
+            var employees = await _employeeRepository.GetOlderThanAsync(age);
             if (employees.Any())
             {
                 throw new NotFoundException(nameof(Employee));
@@ -112,9 +122,9 @@ namespace CSB.Business.Impl
             return employees;
         }
         
-        public IReadOnlyCollection<Employee> GetByGender(Gender gender)
+        public async Task<IReadOnlyCollection<Employee>> GetByGenderAsync(Gender gender)
         {
-            var employees = _employeeRepository.GetByGender((short)gender);
+            var employees = await _employeeRepository.GetByGenderAsync((short)gender);
             if (employees.Any())
             {
                 throw new NotFoundException(nameof(Employee));
@@ -123,14 +133,14 @@ namespace CSB.Business.Impl
             return employees;
         }
         
-        public IReadOnlyCollection<Employee> GetByPosition(string code)
+        public async Task<IReadOnlyCollection<Employee>> GetByPositionAsync(string code)
         {
             if (String.IsNullOrEmpty(code))
             {
                 throw new ArgumentNullException(nameof(code));
             }
 
-            var employees = _employeeRepository.GetByPosition(code);
+            var employees = await _employeeRepository.GetByPositionAsync(code);
             if (employees.Any())
             {
                 throw new NotFoundException(nameof(Employee));
@@ -139,14 +149,14 @@ namespace CSB.Business.Impl
             return employees;
         }
         
-        public IReadOnlyCollection<Address> GetAddressByCity(string city)
+        public async Task<IReadOnlyCollection<Address>> GetAddressByCityAsync(string city)
         {
             if (string.IsNullOrEmpty(city))
             {
                 throw new ArgumentNullException(nameof(city));
             }
 
-            var employees = _employeeRepository.GetAddressByCity(city);
+            var employees = await _employeeRepository.GetAddressByCityAsync(city);
             if (employees.Any())
             {
                 throw new NotFoundException(nameof(Employee));
@@ -155,14 +165,14 @@ namespace CSB.Business.Impl
             return employees;
         }
         
-        public IReadOnlyCollection<Employee> GetPositionByCode(string code)
+        public async Task<IReadOnlyCollection<Position>> GetPositionByCodeAsync(string code)
         {
             if (string.IsNullOrEmpty(code))
             {
                 throw new ArgumentNullException(nameof(code));
             }
 
-            var employees = _employeeRepository.GetPositionByCode(code);
+            var employees = await _employeeRepository.GetPositionByCodeAsync(code);
             if (employees.Any())
             {
                 throw new NotFoundException(nameof(List<Employee>));
@@ -171,16 +181,8 @@ namespace CSB.Business.Impl
             return employees;
         }
         
-        public Task<int> CreateAsync(CreateEmployeeDto employee)
-        {
-            var entity = _mapper.Map<Employee>(employee);
-            return _employeeRepository.CreateAsync(entity);
-        }
+        
 
-        public async Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync()
-        {
-            var result = await _employeeRepository.GetAllAsync();
-            return _mapper.Map<IReadOnlyCollection<GetEmployeeDto>>(result);
-        }
+
     }
 }

@@ -12,11 +12,11 @@ namespace CSB.Repository.GenericRepo
         //treba metode: create, update, delete, getAll, getById
         Task<int> CreateAsync(T item);
 
-        bool Update(T item);
+        Task<bool> UpdateAsync(T item);
 
-        bool Delete(int id);
+        Task<bool> DeleteAsync(int id);
 
-        T GetById(int id);
+        Task<T> GetByIdAsync(int id);
 
         Task<IReadOnlyCollection<T>> GetAllAsync();
     }
