@@ -19,12 +19,10 @@ namespace CSB.Repository.Impl
         { 
 
         }
-  
-        public Position GetPositionByEmployeeId(int employeeId)
-        {
-            var item = dbContext.Positions.SingleOrDefault(x => x.Id == employeeId);
-            return item;
 
+        public Task<Position> GetPositionByEmployeeIdAsync(int employeeId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

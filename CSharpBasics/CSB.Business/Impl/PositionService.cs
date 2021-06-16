@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace CSB.Business.Impl
 {
@@ -62,13 +62,13 @@ namespace CSB.Business.Impl
             return _positionRepository.Update(item);
         }
 
-        public Position GetPositionByEmployeeId(int employeeId)
+        public async Task<Position> GetPositionByEmployeeId(int employeeId)
         {
             if (employeeId <= 0)
             {
                 throw new ArgumentException();
             }
-            return _positionRepository.GetPositionByEmployeeId(employeeId);
+            return await _positionRepository.GetPositionByEmployeeIdAsync(employeeId);
         }
 
     }

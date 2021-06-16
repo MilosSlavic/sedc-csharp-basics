@@ -10,6 +10,6 @@ namespace CSB.Repository.Interfaces
 {
     public interface IPositionRepository : IGenericRepository<Position>
     {
-        Position GetPositionByEmployeeId(int employeeId);
+        Task<Position> GetPositionByEmployeeIdAsync(int employeeId);
     }
 }
