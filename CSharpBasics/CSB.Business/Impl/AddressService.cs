@@ -9,11 +9,11 @@ namespace CSB.Business.Impl
 {
     class AddressService : IAddressService
     {
-        private readonly IAddressService _addressRepository;
+        private readonly IAddressRepository _addressRepository;
 
         public AddressService(IAddressRepository addressRepository)
         {
-            this._addressRepository = (IAddressService)addressRepository;
+            this._addressRepository = addressRepository;
         }
 
 
