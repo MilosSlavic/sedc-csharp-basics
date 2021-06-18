@@ -1,18 +1,20 @@
 ﻿using CSB.Repository.Entities;
 using CSB.Repository.GenericRepo;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace CSB.Business.Interfaces
 {
     public interface IPositionService
     {
-        int Create(Position item);
+        Task<int> CreateAsync(Position item);
 
-        bool Update(Position item);
+        Task<bool> UpdateAsync(Position item);
 
-        bool Delete(int id);
+        Task<bool> DeleteAsync(int id);
 
-        Position GetById(int id);
+        Task<Position> GetByIdAsync(int id);
 
-        IReadOnlyCollection<Position> GetAll();
+        Task<IReadOnlyCollection<Position>> GetAllAsync();
     }
 }

@@ -24,6 +24,10 @@ namespace CSB.GUI
             ServiceCollection services = new ServiceCollection();
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
+            this.DispatcherUnhandledException += (sender, @event) =>
+            {
+                MessageBox.Show(@event.Exception.Message);
+            };
         }
 
         private void ConfigureServices(ServiceCollection services)
@@ -41,6 +45,8 @@ namespace CSB.GUI
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
+            var dbContext = serviceProvider.GetRequiredService<CbsDbContext>();
+            dbContext.Database.EnsureCreated();
             var mainWindow = serviceProvider.GetService<MainWindow>();
             mainWindow.Show();
         }

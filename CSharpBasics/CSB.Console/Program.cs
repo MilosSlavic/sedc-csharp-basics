@@ -162,7 +162,7 @@ namespace CSB.Console
             var employeeService = scope.ServiceProvider.GetRequiredService<IEmployeeService>();
             try
             {
-                var employee = employeeService.GetById(123);
+                var employee = employeeService.GetByIdAsync(123);
             }
             catch (NotFoundException nfEx)
             {
