@@ -18,53 +18,48 @@ namespace CSB.Business.Impl
         }
         
         public async Task<int> CreateAsync(Phone phone)
-        //public int Create (Phone phone)
         {
             if (phone is null)
             {
                 throw new ArgumentNullException();
             }
 
-            return await _phoneRepository.Create(phone);
+            return await _phoneRepository.CreateAsync(phone);
         }
 
         public async Task<bool> UpdateAsync(Phone phone)
-        //public int Update (Phone phone)
         {
             if (phone is null)
             {
                 throw new ArgumentNullException();
             }
-            return await _phoneRepository.Update(phone);
+            return await _phoneRepository.UpdateAsync(phone);
         }
 
         public async Task<bool> DeleteAsync(int id)
-        //public int Delete (int id)
         {
 
             if (id <= 0)
             {
                 throw new ArgumentException();
             }
-            return await _phoneRepository.Delete(id);
+            return await _phoneRepository.DeleteAsync(id);
            
         }
 
         public async Task IReadOnlyCollectionAsync<Phone>GetAll()
-        //public IReadOnlyCollection<Phone> GetAll()
         {
-            return await _phoneRepository.GetAll();
+            return await _phoneRepository.GetAllAsync();
         }
 
 
         public async Task <Phone> GetByIdAsync(int id)
-        //public Phone GetById (int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException();
             }
-            return await _phoneRepository.GetById(id);
+            return await _phoneRepository.GetByIdAsync(id);
         }
     }
 }
