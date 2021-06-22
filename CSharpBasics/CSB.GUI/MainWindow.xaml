@@ -25,6 +25,7 @@
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Bottom"
                 Command="{Binding GetEmployeesCommand}"/>
+        <Button x:Name="AddEmployeeWindowButton" Content="Add employee" HorizontalAlignment="Left" Margin="10,0,0,10" Width="89" Click="AddEmployeeWindowButton_Click" Height="20" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Window>
