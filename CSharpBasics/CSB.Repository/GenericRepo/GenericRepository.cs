@@ -28,12 +28,7 @@ namespace CSB.Repository.GenericRepo
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var item = await GetByIdAsync(id);
-            if (item == null)
-            {
-                return false;
-            }
-
+            var item = await dbContext.Set<T>().SingleOrDefaultAsync(x => x.Id == id);
             dbContext.Set<T>().Remove(item);
             await dbContext.SaveChangesAsync();
             return true;

@@ -81,7 +81,7 @@ namespace CSB.Business.Impl
             return await _employeeRepository.UpdateAsync(employee);
         }
 
-        
+
         public async Task<bool> DeleteAsync(int id)
         {
             if (id <= 0)
@@ -89,19 +89,20 @@ namespace CSB.Business.Impl
                 throw new ArgumentException(nameof(id));
             }
 
+            await GetByIdAsync(id);
             return await _employeeRepository.DeleteAsync(id);
         }
 
-        
+
         public async Task<IReadOnlyCollection<Employee>> GetByNameAsync(string name)
         {
-            if(String.IsNullOrEmpty(name))
+            if (String.IsNullOrEmpty(name))
             {
                 throw new ArgumentException(nameof(name));
             }
 
             var employees = await _employeeRepository.GetByNameAsync(name);
-            if(employees.Any())
+            if (employees.Any())
             {
                 throw new NotFoundException(nameof(List<Employee>));
             }
@@ -109,7 +110,7 @@ namespace CSB.Business.Impl
             return employees;
         }
 
-        
+
         public async Task<IReadOnlyCollection<Employee>> GetOlderThanAsync(int age)
         {
 
@@ -118,10 +119,10 @@ namespace CSB.Business.Impl
             {
                 throw new NotFoundException(nameof(Employee));
             }
-            
+
             return employees;
         }
-        
+
         public async Task<IReadOnlyCollection<Employee>> GetByGenderAsync(Gender gender)
         {
             var employees = await _employeeRepository.GetByGenderAsync((short)gender);
@@ -132,7 +133,7 @@ namespace CSB.Business.Impl
 
             return employees;
         }
-        
+
         public async Task<IReadOnlyCollection<Employee>> GetByPositionAsync(string code)
         {
             if (String.IsNullOrEmpty(code))
@@ -148,7 +149,7 @@ namespace CSB.Business.Impl
 
             return employees;
         }
-        
+
         public async Task<IReadOnlyCollection<Address>> GetAddressByCityAsync(string city)
         {
             if (string.IsNullOrEmpty(city))
@@ -164,7 +165,7 @@ namespace CSB.Business.Impl
 
             return employees;
         }
-        
+
         public async Task<IReadOnlyCollection<Position>> GetPositionByCodeAsync(string code)
         {
             if (string.IsNullOrEmpty(code))
@@ -180,8 +181,8 @@ namespace CSB.Business.Impl
 
             return employees;
         }
-        
-        
+
+
 
 
     }
