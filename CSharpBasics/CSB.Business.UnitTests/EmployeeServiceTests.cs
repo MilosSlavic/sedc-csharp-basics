@@ -9,29 +9,13 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace CSB.Business.UnitTests
 {
     public class EmployeeServiceTests
-    {/*public async Task<GetEmployeeDto> GetByIdAsync(int id)
-        {
-            if (id <= 0)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-
-            var employee = await _employeeRepository.GetByIdAsync(id);
-            if (employee is null)
-            {
-                throw new NotFoundException(nameof(Employee));
-            }
-
-            return _mapper.Map<GetEmployeeDto>(employee);
-        }*/
-
+    {
         private readonly IMapper _mapper;
 
         public EmployeeServiceTests()
@@ -79,16 +63,7 @@ namespace CSB.Business.UnitTests
             Assert.Equal(Gender.Male, entity.Gender);
             Assert.Equal(EmployeeStatus.Active, entity.Status);
         }
-        /* public async Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync()
-         {
-             var employees = await _employeeRepository.GetAllAsync();
-             if (employees.Any() == false)
-             {
-                 throw new NotFoundException(nameof(Employee));
-             }
 
-             return _mapper.Map<IReadOnlyCollection<GetEmployeeDto>>(employees);
-         }*/
         [Fact]
         public async Task GetAllByAsync_throws_NotFoundException()
         {
@@ -148,17 +123,6 @@ namespace CSB.Business.UnitTests
 
         }
 
-        /*public async Task<int> CreateAsync(CreateEmployeeDto employee)
-        {
-            if (employee is null)
-            {
-                throw new ArgumentNullException(nameof(employee));
-            }
-            var entity = _mapper.Map<Employee>(employee);
-            return await _employeeRepository.CreateAsync(entity);
-        }
-        */
-
         [Fact]
         public async Task CreateAsync_throws_ArgumentNullException()
         {
@@ -173,7 +137,7 @@ namespace CSB.Business.UnitTests
             var repositoryMock = new Mock<IEmployeeRepository>();
             repositoryMock.Setup(x => x.CreateAsync(It.IsAny<Employee>()))
                     .ReturnsAsync(1);
-            CreateEmployeeDto item =new CreateEmployeeDto()
+            CreateEmployeeDto item = new CreateEmployeeDto()
             {
                 DateOfBirth = DateTime.Today.AddYears(-18),
                 Email = "mail@mail.com",
@@ -187,15 +151,6 @@ namespace CSB.Business.UnitTests
             Assert.Equal<int>(expectedId, actualId);
         }
 
-        /*public async Task<bool> UpdateAsync(Employee employee)
-        {
-            if (employee is null)
-            {
-                throw new ArgumentNullException(nameof(employee));
-            }
-
-            return await _employeeRepository.UpdateAsync(employee);
-        }*/
         [Fact]
         public async Task UpdateAsync_throws_ArgumentNullException()
         {
@@ -204,18 +159,6 @@ namespace CSB.Business.UnitTests
 
         }
 
-        //public async Task UpdateAsync_SuccessAsync()
-
-        /*public async Task<bool> DeleteAsync(int id)
-        {
-            if (id <= 0)
-            {
-                throw new ArgumentException(nameof(id));
-            }
-
-            return await _employeeRepository.DeleteAsync(id);
-        }
-*/
         [Fact]
         public async Task DeleteAsync_throws_ArgumentException()
         {
@@ -223,31 +166,25 @@ namespace CSB.Business.UnitTests
             await Assert.ThrowsAsync<ArgumentException>(() => employeeService.DeleteAsync(0));
         }
 
+        [Fact]
+        public async Task DeleteAsync_throws_NotFoundException()
+        {
+            var repositoryMock = new Mock<IEmployeeRepository>();
+            var employeeService = new EmployeeService(_mapper, repositoryMock.Object);
+            await Assert.ThrowsAsync<NotFoundException>(() => employeeService.DeleteAsync(1));
+        }
 
         [Fact]
         public async Task DeleteAsync_SuccessAsync()
         {
             var repositoryMock = new Mock<IEmployeeRepository>();
-            repositoryMock.Setup(x => x.GetAllAsync())
-                .ReturnsAsync(new List<Repository.Entities.Employee>()
-                { new Employee
-                    { DateOfBirth = DateTime.Today.AddYears(-18),
-                       Email = "mail@mail.com",
-                       FirstName = "First",
-                       LastName = "Last",
-                       Gender = 1,
-                       Position = null,
-                       Status = 1 
-                    },
-                    new Employee{ }
-                });
+            repositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(new Employee { });
+            repositoryMock.Setup(x => x.DeleteAsync(It.IsAny<int>()))
+                .ReturnsAsync(true);
             var employeeService = new EmployeeService(_mapper, repositoryMock.Object);
-            IReadOnlyCollection<GetEmployeeDto> entities = await employeeService.GetAllAsync();
-            var expected = await Task<bool>.FromResult<bool>(true);
-            var actual1 = await employeeService.DeleteAsync(1);
-            var actual2 = await employeeService.DeleteAsync(2);
-            Assert.True(actual1);
-            Assert.False(actual2);
+            var actual = await employeeService.DeleteAsync(1);
+            Assert.True(actual);
 
         }
     }
