@@ -49,7 +49,7 @@ namespace CSB.Business.Impl
            
         }
 
-        public async Task IReadOnlyCollectionAsync<Phone>GetAll()
+        public async Task <IReadOnlyCollection<Phone>>GetAllAsync()
         {
             return await _phoneRepository.GetAllAsync();
         }
