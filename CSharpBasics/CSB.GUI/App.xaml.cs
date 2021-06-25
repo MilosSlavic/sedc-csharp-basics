@@ -35,6 +35,7 @@ namespace CSB.GUI
 
             services.AddSingleton<MainWindow>();
             services.AddTransient<AddEmployee>();
+            services.AddTransient<DeleteEmployee>();
             services.AddAutoMapper(cfg => cfg.AddProfile<BusinessProfile>());
             services.AddRepository();
             services.AddBusiness();
