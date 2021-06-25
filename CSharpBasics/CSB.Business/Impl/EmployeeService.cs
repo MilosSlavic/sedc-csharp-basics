@@ -44,64 +44,55 @@ namespace CSB.Business.Impl
         public async Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync()
         {
             var employees = await _employeeRepository.GetAllAsync();
-            if (employees.Any() == false)
+            if (!employees.Any())
             {
                 throw new NotFoundException(nameof(Employee));
             }
 
             return _mapper.Map<IReadOnlyCollection<GetEmployeeDto>>(employees);
         }
-        /*public async Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync()
+
+        public Task<int> CreateAsync(CreateEmployeeDto employee)
         {
-            var result = await _employeeRepository.GetAllAsync();
-            return _mapper.Map<IReadOnlyCollection<GetEmployeeDto>>(result);
-        }*/
-        /*public Task<int> CreateAsync(CreateEmployeeDto employee)
-        {
+            if (employee is null)
+            {
+                throw new ArgumentNullException(nameof(employee));
+            }
             var entity = _mapper.Map<Employee>(employee);
             return _employeeRepository.CreateAsync(entity);
-        }*/
-        public async Task<int> CreateAsync(CreateEmployeeDto employee)
-        {
-            if (employee is null)
-            {
-                throw new ArgumentNullException(nameof(employee));
-            }
-            var entity = _mapper.Map<Employee>(employee);
-            return await _employeeRepository.CreateAsync(entity);
         }
 
-        public async Task<bool> UpdateAsync(Employee employee)
+        public Task<bool> UpdateAsync(Employee employee)
         {
             if (employee is null)
             {
                 throw new ArgumentNullException(nameof(employee));
             }
 
-            return await _employeeRepository.UpdateAsync(employee);
+            return _employeeRepository.UpdateAsync(employee);
         }
 
-        
-        public async Task<bool> DeleteAsync(int id)
+
+        public Task<bool> DeleteAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _employeeRepository.DeleteAsync(id);
+            return _employeeRepository.DeleteAsync(id);
         }
 
-        
+
         public async Task<IReadOnlyCollection<Employee>> GetByNameAsync(string name)
         {
-            if(String.IsNullOrEmpty(name))
+            if (String.IsNullOrEmpty(name))
             {
                 throw new ArgumentException(nameof(name));
             }
 
             var employees = await _employeeRepository.GetByNameAsync(name);
-            if(employees.Any())
+            if (employees.Any())
             {
                 throw new NotFoundException(nameof(List<Employee>));
             }
@@ -109,7 +100,7 @@ namespace CSB.Business.Impl
             return employees;
         }
 
-        
+
         public async Task<IReadOnlyCollection<Employee>> GetOlderThanAsync(int age)
         {
 
@@ -118,10 +109,10 @@ namespace CSB.Business.Impl
             {
                 throw new NotFoundException(nameof(Employee));
             }
-            
+
             return employees;
         }
-        
+
         public async Task<IReadOnlyCollection<Employee>> GetByGenderAsync(Gender gender)
         {
             var employees = await _employeeRepository.GetByGenderAsync((short)gender);
@@ -132,7 +123,7 @@ namespace CSB.Business.Impl
 
             return employees;
         }
-        
+
         public async Task<IReadOnlyCollection<Employee>> GetByPositionAsync(string code)
         {
             if (String.IsNullOrEmpty(code))
@@ -148,7 +139,7 @@ namespace CSB.Business.Impl
 
             return employees;
         }
-        
+
         public async Task<IReadOnlyCollection<Address>> GetAddressByCityAsync(string city)
         {
             if (string.IsNullOrEmpty(city))
@@ -164,7 +155,7 @@ namespace CSB.Business.Impl
 
             return employees;
         }
-        
+
         public async Task<IReadOnlyCollection<Position>> GetPositionByCodeAsync(string code)
         {
             if (string.IsNullOrEmpty(code))
@@ -180,8 +171,8 @@ namespace CSB.Business.Impl
 
             return employees;
         }
-        
-        
+
+
 
 
     }
