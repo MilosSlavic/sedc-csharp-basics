@@ -1,104 +1,53 @@
 ﻿using CSB.Repository.Entities;
 using CSB.Repository.Interfaces;
+using CSB.Repository.GenericRepo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CSB.Repository.Impl
 {
-    internal class EmployeeRepository : IEmployeeRepository
+
+    public class EmployeeRepository : GenericRepository<Employee>, IEmployeeRepository
     {
-        private FileDbProvider _fileDb;
-
-        public EmployeeRepository(FileDbProvider fileDb)
+        private readonly CbsDbContext dbContext;
+        public EmployeeRepository(CbsDbContext dbContext) : base(dbContext)
         {
-            _fileDb = fileDb;
+            this.dbContext = dbContext;
         }
 
-        public int Create(Employee employee)
+
+        public async Task<IReadOnlyCollection<Employee>> GetByNameAsync(string name)
         {
-            int newId = _fileDb.Employees.Max(x => x.Id);
+            return await dbContext.Employees.Where(x => x.FirstName == name).ToListAsync();
 
-            employee.Id = newId + 1;
-
-            _fileDb.Employees.Add(employee);
-
-            _fileDb.Save();
-
-            return employee.Id;
         }
 
-        public bool Delete(int id)
+        public async Task<IReadOnlyCollection<Employee>> GetOlderThanAsync(int age)
         {
-            var deletedEmployee = _fileDb.Employees.FirstOrDefault(x => x.Id == id);
-
-            _fileDb.Employees.Remove(deletedEmployee);
-
-            _fileDb.Save();
-
-            return true;
+            return await dbContext.Employees.Where(x => Math.Abs(x.DateOfBirth.Subtract(DateTime.Today).Days) / 365 > age).ToListAsync();
         }
 
-        public Employee GetById(int id)
+        public async Task<IReadOnlyCollection<Employee>> GetByGenderAsync(short gender)
         {
-            return _fileDb.Employees.FirstOrDefault(x => x.Id == id);
+            return await dbContext.Employees.Where(x => x.Gender == gender).ToListAsync();
         }
 
-        public List<Employee> GetByName(string name)
+        public async Task<IReadOnlyCollection<Employee>> GetByPositionAsync(string code)
         {
-            return _fileDb.Employees.Where(x => x.FirstName == name).ToList();
+            return await dbContext.Employees.Where(x => x.Position != null && x.Position.Code == code).ToListAsync();
         }
 
-        public bool Update(Employee employee)
+        public async Task<IReadOnlyCollection<Position>> GetPositionByCodeAsync(string code)
         {
-            var existingEmployee = _fileDb.Employees.FirstOrDefault(x => x.Id == employee.Id);
-
-            if (existingEmployee == null)
-            {
-                return false;
-            }
-
-            existingEmployee.FirstName = employee.FirstName;
-            existingEmployee.LastName = employee.LastName;
-            existingEmployee.Status = employee.Status;
-            existingEmployee.Gender = employee.Gender;
-            existingEmployee.Email = employee.Email;
-            existingEmployee.DateOfBirth = employee.DateOfBirth;
-            existingEmployee.Position = employee.Position;
-
-
-            _fileDb.Save();
-
-            return true;
-        }
-
-        public List<Employee> GetOlderThan(int age)
-        {
-            return _fileDb.Employees.Where(x => Math.Abs(x.DateOfBirth.Subtract(DateTime.Today).Days) / 365 > age).ToList();
-        }
-        public List<Employee> GetByGender(short gender)
-        {
-            return _fileDb.Employees.Where(x => x.Gender == gender).ToList();
-        }
-
-        public List<Employee> GetByPosition(string code)
-        {
-            return _fileDb.Employees.Where(x => x.Position != null && x.Position.Code == code).ToList();
-        }
-
-        public List<Address> GetAddressByCity(string city)
-        {
-            List<Address> addressesList = _fileDb.Addresses.Where(x => x.City == city).ToList();
-
-            return addressesList;
-        }
-
-        public List<Employee> GetPositionByCode(string code)
-        {
-            List<Employee> pos = _fileDb.Employees.Where(x => x.Position.Code == code).ToList();
+            IReadOnlyCollection<Position> pos = await dbContext.Positions.Where(x => x.Code == code).ToListAsync();
 
             return pos;
         }
+
+
     }
 }
 

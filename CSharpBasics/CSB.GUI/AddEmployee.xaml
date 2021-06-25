@@ -1,0 +1,26 @@
+﻿<Window x:Class="CSB.GUI.AddEmployee"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CSB.GUI"
+        mc:Ignorable="d"
+        Title="Add Employee" Height="450" Width="450">
+    <Grid x:Name="AddEmployee1" Background="#555555" Height="434" VerticalAlignment="Center" HorizontalAlignment="Left" Width="450">
+        <Button x:Name="CancelButton" Background="#995555" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,372,240,27" Width="200" Foreground="White" FontSize="16" Click="Cancel_Click"/>
+        <Button x:Name="AddButton" Background="#559955" Content="Add" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="240,372,10,27" Foreground="White" FontSize="16" Width="200" Click="Add_Click"/>
+
+        <TextBox x:Name="FirstNameInput" HorizontalAlignment="Left" Margin="27,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" AutomationProperties.HelpText="First name" FontSize="14"/>
+        <TextBox x:Name="EmailInput" HorizontalAlignment="Left" Margin="27,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" FontSize="14"/>
+        <TextBox x:Name="LastNameInput" HorizontalAlignment="Left" Margin="267,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" FontSize="14"/>
+        <RadioButton x:Name="MaleGenderRadio" Content="Male" HorizontalAlignment="Left" Margin="121,242,0,0" Foreground="White" GroupName="GenderRadioButton" Height="16" VerticalAlignment="Top" FontSize="14"/>
+        <RadioButton x:Name="FemaleGenderRadio" Content="Female" Margin="267,241,0,0" VerticalAlignment="Top" Foreground="White" GroupName="GenderRadioButton" FontSize="14" HorizontalAlignment="Left" Width="63"/>
+        <DatePicker x:Name="BirthdateInput" HorizontalAlignment="Left" Margin="267,156,0,0" VerticalAlignment="Top" Width="133"/>
+        <Label Content="E-mail&#xD;&#xA;" HorizontalAlignment="Left" Margin="64,127,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" Height="29"/>
+        <Label Content="First name" HorizontalAlignment="Left" Margin="53,57,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" Height="31"/>
+        <Label Content="Last name&#xD;&#xA;" HorizontalAlignment="Left" Margin="294,52,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" Height="31"/>
+        <Label Content="Pick your gender&#xD;&#xA;" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="16" Margin="0,202,0,0" Height="34"/>
+        <Label Content="Birthdate&#xD;&#xA;&#xA;" HorizontalAlignment="Left" Margin="299,124,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" Height="32"/>
+
+    </Grid>
+</Window>

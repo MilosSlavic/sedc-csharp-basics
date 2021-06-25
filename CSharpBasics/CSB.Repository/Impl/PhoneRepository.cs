@@ -10,6 +10,7 @@ namespace CSB.Repository.Impl
 {
     public class PhoneRepository : GenericRepository<Phone>, IPhoneRepository
     {
+        private readonly CbsDbContext dbContext;
         public PhoneRepository(CbsDbContext dbContext) : base(dbContext)
         {
         }
