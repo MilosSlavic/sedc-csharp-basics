@@ -1,8 +1,10 @@
-﻿using CSB.Business.Interfaces;
+﻿using CSB.Business.Exceptions;
+using CSB.Business.Interfaces;
 using CSB.Repository.Entities;
 using CSB.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CSB.Business.Impl
@@ -54,9 +56,25 @@ namespace CSB.Business.Impl
         {
             if (address is null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException(nameof(address));
             }
             return await _addressRepository.UpdateAsync(address);
+        }
+
+        public async Task<IReadOnlyCollection<Address>> GetAddressByCityAsync(string city)
+        {
+            if (string.IsNullOrEmpty(city))
+            {
+                throw new ArgumentNullException(nameof(city));
+            }
+
+            var employees = await _addressRepository.GetAddressByCityAsync(city);
+            if (employees.Any())
+            {
+                throw new NotFoundException(nameof(Employee));
+            }
+
+            return employees;
         }
     }
 }

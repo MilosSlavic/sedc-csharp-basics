@@ -20,5 +20,14 @@ namespace CSB.Repository.Impl
         {
             return await dbContext.Addresses.Where(x => x.EmployeeId == employeeId).ToListAsync();
         }
+
+        public async Task<IReadOnlyCollection<Address>> GetAddressByCityAsync(string city)
+        {
+            IReadOnlyCollection<Address> addressesList = await dbContext.Addresses
+                .Where(x => x.City == city)
+                .ToListAsync();
+
+            return addressesList;
+        }
     }
 }

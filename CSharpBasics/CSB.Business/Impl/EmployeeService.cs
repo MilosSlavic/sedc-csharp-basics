@@ -150,22 +150,6 @@ namespace CSB.Business.Impl
             return employees;
         }
 
-        public async Task<IReadOnlyCollection<Address>> GetAddressByCityAsync(string city)
-        {
-            if (string.IsNullOrEmpty(city))
-            {
-                throw new ArgumentNullException(nameof(city));
-            }
-
-            var employees = await _employeeRepository.GetAddressByCityAsync(city);
-            if (employees.Any())
-            {
-                throw new NotFoundException(nameof(Employee));
-            }
-
-            return employees;
-        }
-
         public async Task<IReadOnlyCollection<Position>> GetPositionByCodeAsync(string code)
         {
             if (string.IsNullOrEmpty(code))

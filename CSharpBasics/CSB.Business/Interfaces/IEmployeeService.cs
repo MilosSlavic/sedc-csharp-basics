@@ -28,8 +28,6 @@ namespace CSB.Business.Interfaces
 
         Task<IReadOnlyCollection<Employee>> GetByPositionAsync(string code);
 
-        Task<IReadOnlyCollection<Address>> GetAddressByCityAsync(string city);
-
         Task<IReadOnlyCollection<Position>> GetPositionByCodeAsync(string code);
 
         //Task<IReadOnlyCollection<GetEmployeeDto>> GetAllAsync();
