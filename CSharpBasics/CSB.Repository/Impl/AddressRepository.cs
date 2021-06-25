@@ -1,12 +1,10 @@
-﻿using System;
+﻿using CSB.Repository.Entities;
+using CSB.Repository.GenericRepo;
+using CSB.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using CSB.Repository.Entities;
-using CSB.Repository.Interfaces;
-using CSB.Repository.GenericRepo;
-using Microsoft.EntityFrameworkCore;
 
 namespace CSB.Repository.Impl
 {
@@ -14,12 +12,11 @@ namespace CSB.Repository.Impl
     {
         public AddressRepository(CbsDbContext dbContext) : base(dbContext)
         {
-            this.dbContext = dbContext;
         }
 
         private readonly CbsDbContext dbContext;
 
-        public async Task<IReadOnlyList<Address>> GetAddressesAsync(int employeeId)
+        public async Task<IReadOnlyCollection<Address>> GetByEmployeeIdAsync(int employeeId)
         {
             return await dbContext.Addresses.Where(x => x.EmployeeId == employeeId).ToListAsync();
         }

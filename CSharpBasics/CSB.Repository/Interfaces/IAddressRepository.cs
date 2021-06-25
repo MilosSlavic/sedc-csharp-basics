@@ -7,6 +7,6 @@ namespace CSB.Repository.Interfaces
 {
     public interface IAddressRepository : IGenericRepository<Address>
     {
-        Task<IReadOnlyList<Address>> GetAddressesAsync(int employeeId);
+        Task<IReadOnlyCollection<Address>> GetByEmployeeIdAsync(int employeeId);
     }
 }

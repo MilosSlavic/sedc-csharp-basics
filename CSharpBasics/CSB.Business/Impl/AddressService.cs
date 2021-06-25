@@ -35,18 +35,19 @@ namespace CSB.Business.Impl
             return await _addressRepository.DeleteAsync(employeeId);
         }
 
-        public async Task<Address> GetAddressesByIdAsync(int employeeId)
-        {
-            if (employeeId <= 0)
-            {
-                throw new ArgumentException();
-            }
-            return await _addressRepository.GetAddressesByIdAsync(employeeId);
-        }
-
         public async Task<IReadOnlyCollection<Address>> GetAllAsync()
         {
             return await _addressRepository.GetAllAsync();
+        }
+
+        public Task<IReadOnlyCollection<Address>> GetByEmployeeIdAsync(int employeeId)
+        {
+            if (employeeId <= 0)
+            {
+                throw new ArgumentException(nameof(employeeId));
+            }
+
+            return _addressRepository.GetByEmployeeIdAsync(employeeId);
         }
 
         public async Task<bool> UpdateAsync(Address address)

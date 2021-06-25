@@ -11,7 +11,7 @@ namespace CSB.Business.Interfaces
         Task<int> CreateAsync(Address address);
         Task<bool> DeleteAsync(int employeeId);
         Task<bool> UpdateAsync(Address address);
-        Task<Address> GetAddressesByIdAsync(int employeeId);
         Task<IReadOnlyCollection<Address>> GetAllAsync();
+        Task<IReadOnlyCollection<Address>> GetByEmployeeIdAsync(int employeeId);
     }
 }
