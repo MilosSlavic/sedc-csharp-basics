@@ -14,35 +14,5 @@ namespace CSB.Repository.Impl
         public PhoneRepository(CbsDbContext dbContext) : base(dbContext)
         {
         }
-
-        public Task<int> CreateAsync(Phone phone)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IReadOnlyCollection<Phone>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Phone> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Phone> GetByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> UpdateAsync(Phone phone)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
