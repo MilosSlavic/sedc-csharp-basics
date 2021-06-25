@@ -14,10 +14,9 @@ namespace CSB.Business.Impl
 
         public PhoneService(IPhoneRepository phoneRepository)
         {
-            this._phoneRepository = phoneRepository;
-
+            _phoneRepository = phoneRepository;
         }
-        
+
         public async Task<int> CreateAsync(Phone phone)
 
         {
@@ -46,16 +45,15 @@ namespace CSB.Business.Impl
                 throw new ArgumentException();
             }
             return await _phoneRepository.DeleteAsync(id);
-           
+
         }
 
-        public async Task <IReadOnlyCollection<Phone>>GetAllAsync()
+        public async Task<IReadOnlyCollection<Phone>> GetAllAsync()
         {
             return await _phoneRepository.GetAllAsync();
         }
 
-
-        public async Task <Phone> GetByIdAsync(int id)
+        public async Task<Phone> GetByIdAsync(int id)
         {
             if (id <= 0)
             {

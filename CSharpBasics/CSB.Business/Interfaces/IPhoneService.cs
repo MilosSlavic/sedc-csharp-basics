@@ -6,14 +6,14 @@ namespace CSB.Business.Interfaces
 {
     public interface IPhoneService
     {
-          Task<int> CreateAsync(Phone phone);
+        Task<int> CreateAsync(Phone phone);
 
-          Task<bool> UpdateAsync(Phone phone);
+        Task<bool> UpdateAsync(Phone phone);
 
-          Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAsync(int id);
 
-          Task<Phone> GetByIdAsync(int id);
+        Task<Phone> GetByIdAsync(int id);
 
-          Task IReadOnlyCollectionAsync<Phone> GetAll();
+        Task<IReadOnlyCollection<Phone>> GetAllAsync();
     }
 }
