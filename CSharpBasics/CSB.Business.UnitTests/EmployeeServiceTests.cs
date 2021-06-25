@@ -27,7 +27,7 @@ namespace CSB.Business.UnitTests
         public async Task GetByIdAsync_throws_ArgumentNullException()
         {
             var employeeService = new EmployeeService(_mapper, null);
-            await Assert.ThrowsAsync<ArgumentNullException>(() => employeeService.GetByIdAsync(0));
+            await Assert.ThrowsAsync<ArgumentException>(() => employeeService.GetByIdAsync(0));
         }
 
         [Fact]
@@ -39,11 +39,11 @@ namespace CSB.Business.UnitTests
         }
 
         [Fact]
-        public async Task GetByIdAsync_SuccessAsync()
+        public async Task GetByIdAsync_Success()
         {
             var repositoryMock = new Mock<IEmployeeRepository>();
             repositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(new Repository.Entities.Employee
+                .ReturnsAsync(new Employee
                 {
                     DateOfBirth = DateTime.Today.AddYears(-18),
                     Email = "mail@mail.com",
@@ -74,12 +74,13 @@ namespace CSB.Business.UnitTests
 
             await Assert.ThrowsAsync<NotFoundException>(() => employeeService.GetAllAsync());
         }
+
         [Fact]
-        public async Task GetAllByAsync_SuccessAsync()
+        public async Task GetAllAsync_Success()
         {
             var repositoryMock = new Mock<IEmployeeRepository>();
             repositoryMock.Setup(x => x.GetAllAsync())
-                    .ReturnsAsync(new List<Repository.Entities.Employee>()
+                    .ReturnsAsync(new List<Employee>()
                     { new Employee
                         {
                         DateOfBirth = DateTime.Today.AddYears(-18),
@@ -104,23 +105,21 @@ namespace CSB.Business.UnitTests
             var employeeService = new EmployeeService(_mapper, repositoryMock.Object);
             IReadOnlyCollection<GetEmployeeDto> entities = await employeeService.GetAllAsync();
             int i = 0;
-            {
-                Assert.Equal(DateTime.Today.AddYears(-18), entities.ElementAt(i).DateOfBirth);
-                Assert.Equal("mail@mail.com", entities.ElementAt(i).Email);
-                Assert.Equal("First", entities.ElementAt(i).FirstName);
-                Assert.Equal("Last", entities.ElementAt(i).LastName);
-                Assert.Equal(Gender.Male, entities.ElementAt(i).Gender);
-                Assert.Equal(EmployeeStatus.Active, entities.ElementAt(i).Status);
-                i++;
-                Assert.Equal(DateTime.Today.AddYears(-20), entities.ElementAt(i).DateOfBirth);
-                Assert.Equal("mail.mm@mail.com", entities.ElementAt(i).Email);
-                Assert.Equal("FName", entities.ElementAt(i).FirstName);
-                Assert.Equal("LName", entities.ElementAt(i).LastName);
-                Assert.Equal(Gender.Female, entities.ElementAt(i).Gender);
-                Assert.Equal(EmployeeStatus.Active, entities.ElementAt(i).Status);
-            }
+            Assert.Equal(DateTime.Today.AddYears(-18), entities.ElementAt(i).DateOfBirth);
+            Assert.Equal("mail@mail.com", entities.ElementAt(i).Email);
+            Assert.Equal("First", entities.ElementAt(i).FirstName);
+            Assert.Equal("Last", entities.ElementAt(i).LastName);
+            Assert.Equal(Gender.Male, entities.ElementAt(i).Gender);
+            Assert.Equal(EmployeeStatus.Active, entities.ElementAt(i).Status);
+            i++;
+            Assert.Equal(DateTime.Today.AddYears(-20), entities.ElementAt(i).DateOfBirth);
+            Assert.Equal("mail.mm@mail.com", entities.ElementAt(i).Email);
+            Assert.Equal("FName", entities.ElementAt(i).FirstName);
+            Assert.Equal("LName", entities.ElementAt(i).LastName);
+            Assert.Equal(Gender.Female, entities.ElementAt(i).Gender);
+            Assert.Equal(EmployeeStatus.Active, entities.ElementAt(i).Status);
 
-
+            repositoryMock.Verify(x => x.GetAllAsync(), Times.Once);
         }
 
         [Fact]
@@ -128,11 +127,10 @@ namespace CSB.Business.UnitTests
         {
             var employeeService = new EmployeeService(_mapper, null);
             await Assert.ThrowsAsync<ArgumentNullException>(() => employeeService.CreateAsync(null));
-
         }
 
         [Fact]
-        public async Task CreateAsync_SuccessAsync()
+        public async Task CreateAsync_Success()
         {
             var repositoryMock = new Mock<IEmployeeRepository>();
             repositoryMock.Setup(x => x.CreateAsync(It.IsAny<Employee>()))
@@ -147,8 +145,7 @@ namespace CSB.Business.UnitTests
             };
             var employeeService = new EmployeeService(_mapper, repositoryMock.Object);
             var actualId = await employeeService.CreateAsync(item);
-            var expectedId = await Task<int>.FromResult<int>(1);
-            Assert.Equal<int>(expectedId, actualId);
+            Assert.Equal(1, actualId);
         }
 
         [Fact]
@@ -156,7 +153,17 @@ namespace CSB.Business.UnitTests
         {
             var employeeService = new EmployeeService(_mapper, null);
             await Assert.ThrowsAsync<ArgumentNullException>(() => employeeService.UpdateAsync(null));
+        }
 
+        [Fact]
+        public async Task UpdateAsync_Success()
+        {
+            var repositoryMock = new Mock<IEmployeeRepository>();
+            repositoryMock.Setup(x => x.UpdateAsync(It.IsAny<Employee>()))
+                    .ReturnsAsync(true);
+            var employeeService = new EmployeeService(_mapper, repositoryMock.Object);
+            var result = await employeeService.UpdateAsync(new Employee { Id = 1 });
+            Assert.True(result);
         }
 
         [Fact]

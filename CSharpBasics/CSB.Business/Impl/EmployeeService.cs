@@ -29,7 +29,7 @@ namespace CSB.Business.Impl
         {
             if (id <= 0)
             {
-                throw new ArgumentNullException(nameof(id));
+                throw new ArgumentException(nameof(id));
             }
 
             var employee = await _employeeRepository.GetByIdAsync(id);
@@ -67,6 +67,7 @@ namespace CSB.Business.Impl
             {
                 throw new ArgumentNullException(nameof(employee));
             }
+
             var entity = _mapper.Map<Employee>(employee);
             return await _employeeRepository.CreateAsync(entity);
         }
