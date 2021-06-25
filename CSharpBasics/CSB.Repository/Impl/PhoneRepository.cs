@@ -13,8 +13,6 @@ namespace CSB.Repository.Impl
         private readonly CbsDbContext dbContext;
         public PhoneRepository(CbsDbContext dbContext) : base(dbContext)
         {
-            this.dbContext = dbContext;
         }
-        
     }
 }

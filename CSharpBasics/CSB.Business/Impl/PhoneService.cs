@@ -14,51 +14,52 @@ namespace CSB.Business.Impl
 
         public PhoneService(IPhoneRepository phoneRepository)
         {
-            this._phoneRepository = phoneRepository;
+            _phoneRepository = phoneRepository;
         }
-        public Task<int> CreateAsync(Phone phone)
+
+        public async Task<int> CreateAsync(Phone phone)
+
         {
             if (phone is null)
             {
                 throw new ArgumentNullException();
             }
-            
-            return _phoneRepository.CreateAsync(phone);
+
+            return await _phoneRepository.CreateAsync(phone);
         }
 
-        public Task<bool> UpdateAsync(Phone phone)
+        public async Task<bool> UpdateAsync(Phone phone)
         {
             if (phone is null)
             {
                 throw new ArgumentNullException();
             }
-            return _phoneRepository.UpdateAsync(phone);
+            return await _phoneRepository.UpdateAsync(phone);
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            
+
             if (id <= 0)
             {
                 throw new ArgumentException();
             }
-            return _phoneRepository.DeleteAsync(id);
-           
+            return await _phoneRepository.DeleteAsync(id);
+
         }
 
-        public Task<IReadOnlyCollection<Phone>> GetAllAsync()
+        public async Task<IReadOnlyCollection<Phone>> GetAllAsync()
         {
-            return _phoneRepository.GetAllAsync();
+            return await _phoneRepository.GetAllAsync();
         }
 
-
-        public Task<Phone> GetByIdAsync(int id)
+        public async Task<Phone> GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException();
             }
-            return _phoneRepository.GetByIdAsync(id);
+            return await _phoneRepository.GetByIdAsync(id);
         }
     }
 }
