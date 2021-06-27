@@ -23,6 +23,8 @@ namespace CSB.Repository
 
         public DbSet<Position> Positions { get; set; }
 
+        public DbSet<FamilyMember> FamilyMembers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

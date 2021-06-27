@@ -15,6 +15,8 @@ namespace CSB.Repository
 
         private const string positionsFile = "positions.json";
 
+        private const string familyMemberFile = "positions.json";
+
         public static FileDbProvider Instance { get; }
 
         public List<Employee> Employees { get; set; } = new List<Employee>();
@@ -24,6 +26,7 @@ namespace CSB.Repository
         public List<Address> Addresses { get; set; } = new List<Address>();
 
         public List<Position> Positions { get; set; } = new List<Position>();
+        public List<FamilyMember> FamilyMembers { get; set; } = new List<FamilyMember>();
 
         static FileDbProvider()
         {
@@ -83,6 +86,9 @@ namespace CSB.Repository
 
             var positionsContent = JsonSerializer.Serialize(Positions);
             File.WriteAllText(positionsFile, positionsContent);
+
+            var familyMemberContent = JsonSerializer.Serialize(FamilyMembers);
+            File.WriteAllText(familyMemberFile, familyMemberContent);
         }
     }
 }
