@@ -18,29 +18,45 @@ namespace CSB.Business.Impl
             this._familyMemberRepository = familyMemberRepository;
         }
 
-        public Task<int> CreateAsync(FamilyMember item)
+        public async Task<int> CreateAsync(FamilyMember item)
         {
-            throw new NotImplementedException();
+            if (item is null)
+            {
+                throw new ArgumentException();
+            }
+            return await _familyMemberRepository.CreateAsync(item);
         }
 
         public Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            if (id <= 0)
+            {
+                throw new ArgumentException();
+            }
+            return _familyMemberRepository.DeleteAsync(id);
         }
 
         public Task<IReadOnlyCollection<FamilyMember>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return _familyMemberRepository.GetAllAsync();
         }
 
         public Task<FamilyMember> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            if (id <= 0)
+            {
+                throw new ArgumentException();
+            }
+            return _familyMemberRepository.GetByIdAsync(id);
         }
 
         public Task<bool> UpdateAsync(FamilyMember item)
         {
-            throw new NotImplementedException();
+            if (item == null)
+            {
+                throw new ArgumentNullException();
+            }
+            return _familyMemberRepository.UpdateAsync(item);
         }
     }
 }
