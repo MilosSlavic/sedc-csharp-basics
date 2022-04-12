@@ -10,11 +10,15 @@
         <DataGrid x:Name="dataGrid"
                   Margin="0,0,0,60"
                   ItemsSource="{Binding Employees}"
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False" >
             <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Gender" Binding="{Binding Gender}"></DataGridTextColumn>
                 <DataGridTextColumn Header="E-mail" Binding="{Binding Email}"></DataGridTextColumn>
+                <DataGridTextColumn Header="DOB" Binding="{Binding DateOfBirth}">    
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="button" 
@@ -26,6 +30,7 @@
                 VerticalAlignment="Bottom"
                 Command="{Binding GetEmployeesCommand}"/>
         <Button x:Name="AddEmployeeWindowButton" Content="Add employee" HorizontalAlignment="Left" Margin="10,0,0,10" Width="89" Click="AddEmployeeWindowButton_Click" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="DeleteEmployeeWindowButton" Content="Delete employee" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="130,0,0,10" Width="98" Click="DeleteEmployeeWindowButton_Click" RenderTransformOrigin="0.289,0.454"/>
 
     </Grid>
 </Window>
