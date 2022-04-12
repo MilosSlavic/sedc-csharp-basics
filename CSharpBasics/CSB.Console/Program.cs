@@ -43,7 +43,7 @@ namespace CSB.Console
                     "Employee date of birth"),
                 new Option<string>(
                     "--email",
-                    "Employee email")
+                    "Employee email2")
             };
 
             rootCommand.Description = "My sample app";

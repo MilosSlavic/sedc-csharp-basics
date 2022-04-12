@@ -41,7 +41,6 @@ namespace CSB.Repository.GenericRepo
 
         public async Task<bool> UpdateAsync(T item)
         {
-
             var entry = dbContext.Entry(item);
             entry.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             var rowsAffected = await dbContext.SaveChangesAsync();
